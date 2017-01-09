@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ThreeAxisDrive extends Command {
+public class Drive extends Command {
 
-	public ThreeAxisDrive() {
+	public Drive() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.drive);
@@ -23,7 +23,7 @@ public class ThreeAxisDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.axisdrive(OI.joy3axis.getRawAxis(0), OI.joy3axis.getRawAxis(1), OI.joy3axis.getRawAxis(3));
+		Robot.drive.axisdrive(OI.joyright.getRawAxis(0), OI.joyright.getRawAxis(1), OI.joyleft.getRawAxis(0));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
