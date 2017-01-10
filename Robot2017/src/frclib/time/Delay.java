@@ -1,44 +1,42 @@
-package org.usfirst.frc.team2531.robot.commands;
-
-import org.usfirst.frc.team2531.robot.OI;
-import org.usfirst.frc.team2531.robot.Robot;
+package frclib.time;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Drive extends Command {
+public class Delay extends Command {
 
-	public Drive() {
+	boolean done = false;
+	int milliseconds;
+
+	public Delay(int millis) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.drive);
+		milliseconds = millis;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		System.out.println("-> Drive");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.axisdrive(OI.joyright.getRawAxis(0), OI.joyright.getRawAxis(1), OI.joyleft.getRawAxis(0));
+		Time.delayMiliseconds(milliseconds);
+		done = true;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return done;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		System.out.println("-! Drive");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		end();
 	}
 }

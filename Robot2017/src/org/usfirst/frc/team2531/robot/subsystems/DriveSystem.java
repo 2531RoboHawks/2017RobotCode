@@ -29,4 +29,12 @@ public class DriveSystem extends Subsystem {
 		BL.set(-y - x + r);
 		BR.set(y - y + r);
 	}
+
+	public void axisdrive2(double x, double y, double r) {
+		double a = Math.atan2(y, x);
+		FL.set(-Math.sin(a) + Math.cos(a) + r);
+		FR.set(Math.sin(a) + Math.cos(a) + r);
+		BL.set(-Math.sin(a) - Math.cos(a) + r);
+		BR.set(Math.sin(a) - Math.cos(a) + r);
+	}
 }
