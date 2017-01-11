@@ -27,7 +27,10 @@ public class RobotVision {
 		this.max2 = max2;
 		this.min3 = min3;
 		this.max3 = max3;
+	}
 
+	public Mat getRaw() {
+		return cam.getRawImage();
 	}
 
 	public ArrayList<Rect> HLSgetBlobs(Mat src) {

@@ -1,9 +1,12 @@
 
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.commands.VisionTrack;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -19,6 +22,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSystem drive;
 
+	Command vid;
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -27,7 +32,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		drive = new DriveSystem();
+		vid = new VisionTrack();
 		System.out.println("# Robot Initialization Complete");
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -58,7 +65,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

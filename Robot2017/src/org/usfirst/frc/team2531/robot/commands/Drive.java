@@ -23,7 +23,7 @@ public class Drive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.axisdrive(OI.joyright.getRawAxis(0), OI.joyright.getRawAxis(1), OI.joyleft.getRawAxis(0));
+		Robot.drive.axisdrive(OI.gamepad.getRawAxis(4), OI.gamepad.getRawAxis(5), OI.gamepad.getRawAxis(0));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -2,19 +2,18 @@ package frclib.vision;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.videoio.VideoCapture;
+
+import edu.wpi.first.wpilibj.CameraServer;
 
 public class Camera {
 
-	private VideoCapture cam = null;
-
 	public Camera() {
-		cam = new VideoCapture();
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	public Mat getRawImage() {
 		Mat mat = new Mat();
-		cam.read(mat);
+		CameraServer.getInstance().getVideo().grabFrame(mat);
 		return mat;
 	}
 
