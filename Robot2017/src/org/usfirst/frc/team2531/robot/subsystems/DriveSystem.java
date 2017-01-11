@@ -24,24 +24,10 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void axisdrive(double x, double y, double r) {
-		FL.set(-y + x + r);
-		FR.set(y + x + r);
-		BL.set(-y - x + r);
-		BR.set(y - x + r);
-	}
-
-	public void axisdrive2(double x, double y, double r) {
 		double a = Math.atan2(y, x);
-		if (x != 0 && y != 0) {
-			FL.set(-Math.sin(a) + Math.cos(a) + r);
-			FR.set(Math.sin(a) + Math.cos(a) + r);
-			BL.set(-Math.sin(a) - Math.cos(a) + r);
-			BR.set(Math.sin(a) - Math.cos(a) + r);
-		} else {
-			FL.set(-y + x + r);
-			FR.set(y + x + r);
-			BL.set(-y - x + r);
-			BR.set(y - x + r);
-		}
+		FL.set(-(Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
+		FR.set((Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
+		BL.set(-(Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
+		BR.set((Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
 	}
 }
