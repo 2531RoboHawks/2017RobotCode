@@ -9,15 +9,16 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-public class RobotVision {
+import edu.wpi.cscore.CvSource;
+import edu.wpi.first.wpilibj.CameraServer;
 
-	private Camera cam = null;
+public class RobotVision {
 
 	private int min1 = 0, min2 = 0, min3 = 0;
 	private int max1 = 0, max2 = 0, max3 = 0;
 
-	public RobotVision(Camera cam) {
-		this.cam = cam;
+	public RobotVision() {
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	public void setColor(int min1, int max1, int min2, int max2, int min3, int max3) {
@@ -27,10 +28,6 @@ public class RobotVision {
 		this.max2 = max2;
 		this.min3 = min3;
 		this.max3 = max3;
-	}
-
-	public Mat getRaw() {
-		return cam.getRawImage();
 	}
 
 	public ArrayList<Rect> HLSgetBlobs(Mat src) {
@@ -82,7 +79,7 @@ public class RobotVision {
 	}
 
 	public ArrayList<Rect> HLSgetBlobs() {
-		Mat mat = cam.getRawImage();
+		Mat mat = getRawImage();
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HLS);
@@ -98,7 +95,7 @@ public class RobotVision {
 	}
 
 	public ArrayList<Rect> HSVgetBlobs() {
-		Mat mat = cam.getRawImage();
+		Mat mat = getRawImage();
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);
@@ -114,7 +111,7 @@ public class RobotVision {
 	}
 
 	public ArrayList<Rect> RGBgetBlobs() {
-		Mat mat = cam.getRawImage();
+		Mat mat = getRawImage();
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
@@ -137,8 +134,14 @@ public class RobotVision {
 		return 0;
 	}
 
-	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	public static Mat getRawImage() {
+		Mat mat = new Mat();
+		CameraServer.getInstance().getVideo().grabFrame(mat);
+		return mat;
 	}
 
+	public static void putImage(Mat mat) {
+		CvSource out = CameraServer.getInstance().putVideo("Vision Tracking", 640, 480);
+		out.putFrame(mat);
+	}
 }

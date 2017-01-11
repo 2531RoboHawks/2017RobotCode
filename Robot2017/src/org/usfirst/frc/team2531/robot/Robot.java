@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team2531.robot;
 
-import org.usfirst.frc.team2531.robot.commands.VisionTrack;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -9,6 +8,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import frclib.vision.RobotVision;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSystem drive;
 
 	Command vid;
+	RobotVision vis;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -30,11 +31,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		CameraServer.getInstance().startAutomaticCapture();
 		oi = new OI();
 		drive = new DriveSystem();
-		vid = new VisionTrack();
+		// vid = new VisionTrack();
+		// vis = new RobotVision();
 		System.out.println("# Robot Initialization Complete");
-		CameraServer.getInstance().startAutomaticCapture();
+		// CameraServer.getInstance().startAutomaticCapture();
+		// vid.start();
 	}
 
 	/**
@@ -45,6 +49,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		System.out.println("# Disabled");
+		// vid.start();
 	}
 
 	@Override
