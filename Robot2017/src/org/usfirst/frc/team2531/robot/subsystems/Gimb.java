@@ -39,4 +39,12 @@ public class Gimb extends Subsystem {
 		Time.delayMiliseconds(1000);
 
 	}
+
+	public void setAngleForced(double theta) {
+		serv.setAngle(theta);
+	}
+
+	public void setPositionForce(double pos) {
+		serv.set(pos);
+	}
 }
