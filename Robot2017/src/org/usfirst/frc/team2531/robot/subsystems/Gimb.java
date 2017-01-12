@@ -17,32 +17,26 @@ public class Gimb extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void setPosUP(boolean pressed) {
-		while (pressed == true) {
-			serv.set(serv.get() + .01);
-			Time.delayMiliseconds(100);
-		}
-	}
-
-	public void setPosDOWN(boolean pressed) {
-		while (pressed == true) {
-			serv.set(serv.get() - .01);
-			Time.delayMiliseconds(100);
-		}
-	}
-
-	public void setAngUP(boolean pressed) {
-		while (pressed == true) {
-			serv.setAngle(serv.getAngle() + 1);
-			Time.delayMiliseconds(1000);
-		}
+	public void setPosUP() {
+		serv.set(serv.get() + .01);
+		Time.delayMiliseconds(100);
 
 	}
 
-	public void setAngDOWN(boolean pressed) {
-		while (pressed == true) {
-			serv.setAngle(serv.getAngle() - 1);
-			Time.delayMiliseconds(1000);
-		}
+	public void setPosDOWN() {
+		serv.set(serv.get() - .01);
+		Time.delayMiliseconds(100);
+	}
+
+	public void setAngUP() {
+		serv.setAngle(serv.getAngle() + 1);
+		Time.delayMiliseconds(1000);
+
+	}
+
+	public void setAngDOWN() {
+		serv.setAngle(serv.getAngle() - 1);
+		Time.delayMiliseconds(1000);
+
 	}
 }

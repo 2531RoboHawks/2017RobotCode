@@ -1,6 +1,10 @@
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.commands.GimbalCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -37,8 +41,16 @@ public class OI {
 	// public static Joystick joyright = new Joystick(0);
 	// public static Joystick joyleft = new Joystick(1);
 	public static Joystick gamepad = new Joystick(0);
-
+	// port numbers are placeholders for Dpad1&2
+	public static Button Dpad1 = new JoystickButton(gamepad, 1);
+	public static Button Dpad2 = new JoystickButton(gamepad, 2);
+	public static Button Dpad3 = new JoystickButton(gamepad, 3);
+	public static Button Dpad4 = new JoystickButton(gamepad, 4);
+	
 	public OI() {
-
+		Dpad1.whileHeld(new GimbalCommand());
+		Dpad2.whileHeld(new GimbalCommand());
+		Dpad3.whileHeld(new GimbalCommand());
+		Dpad4.whileHeld(new GimbalCommand());
 	}
 }

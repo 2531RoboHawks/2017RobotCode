@@ -3,6 +3,8 @@ package org.usfirst.frc.team2531.robot;
 
 import org.usfirst.frc.team2531.robot.commands.VisionTrack;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team2531.robot.subsystems.Gimb;
+import org.usfirst.frc.team2531.robot.subsystems.PneumaticsSystem;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,7 +23,8 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSystem drive;
-
+	public static Gimb gimbal;
+	public static PneumaticsSystem pneumatics;
 	Command vid;
 
 	/**
@@ -33,6 +36,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		drive = new DriveSystem();
 		vid = new VisionTrack();
+		gimbal = new Gimb();
+
 		System.out.println("# Robot Initialization Complete");
 		CameraServer.getInstance().startAutomaticCapture();
 	}

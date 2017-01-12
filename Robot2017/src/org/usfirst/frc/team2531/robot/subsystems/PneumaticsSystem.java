@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Pneum extends Subsystem {
+public class PneumaticsSystem extends Subsystem {
 
 	Solenoid sol = new Solenoid(1);
 	public void setstatus(){
