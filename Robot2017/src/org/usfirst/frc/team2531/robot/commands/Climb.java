@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2531.robot.commands;
 
-import org.usfirst.frc.team2531.robot.OI;
 import org.usfirst.frc.team2531.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,22 +7,27 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
+public class Climb extends Command {
 
-	public Drive() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.drive);
+	private boolean dir;
+
+	public Climb(boolean d) {
+		requires(Robot.climber);
+		dir = d;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		System.out.println("-> Drive");
+		System.out.println("-> Climb");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.axisdrive(OI.gamepad.getRawAxis(4), OI.gamepad.getRawAxis(5), OI.gamepad.getRawAxis(0));
+		if (dir) {
+			Robot.climber.set(1);
+		} else {
+			Robot.climber.set(-1);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -33,7 +37,7 @@ public class Drive extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		System.out.println("-! Drive");
+		System.out.println("-! Climb");
 	}
 
 	// Called when another command which requires one or more of the same

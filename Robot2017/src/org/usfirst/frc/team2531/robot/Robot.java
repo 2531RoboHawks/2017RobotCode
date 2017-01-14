@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSystem drive;
+	public static Climber climber;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -25,6 +27,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		climber = new Climber();
 		oi = new OI();
 		drive = new DriveSystem();
 		System.out.println("# Robot Initialization Complete");
