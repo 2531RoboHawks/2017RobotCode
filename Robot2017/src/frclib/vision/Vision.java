@@ -7,17 +7,42 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-public class RobotVision {
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 
-	private Camera cam = null;
+public class Vision {
 
 	private int min1 = 0, min2 = 0, min3 = 0;
 	private int max1 = 0, max2 = 0, max3 = 0;
 
-	public RobotVision(Camera cam) {
-		this.cam = cam;
+	private CvSink sink;
+	private CvSource source;
+
+	public Vision(String name, int dev) {
+		UsbCamera cam = new UsbCamera(name, dev);
+		cam.setResolution(640, 480);
+		sink = CameraServer.getInstance().getVideo(cam);
+		source = CameraServer.getInstance().putVideo(name, 640, 480);
+	}
+
+	public Mat getImage() {
+		Mat mat = new Mat();
+		sink.grabFrame(mat);
+		return mat;
+	}
+
+	public void putImage(Mat mat) {
+		source.putFrame(mat);
+		System.gc();
+	}
+
+	public void showLive() {
+		putImage(getImage());
 	}
 
 	public void setColor(int min1, int max1, int min2, int max2, int min3, int max3) {
@@ -27,7 +52,6 @@ public class RobotVision {
 		this.max2 = max2;
 		this.min3 = min3;
 		this.max3 = max3;
-
 	}
 
 	public ArrayList<Rect> HLSgetBlobs(Mat src) {
@@ -35,6 +59,7 @@ public class RobotVision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HLS);
+		Imgproc.blur(mat, mat, new Size(4, 4));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -51,6 +76,7 @@ public class RobotVision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);
+		Imgproc.blur(mat, mat, new Size(4, 4));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -67,6 +93,7 @@ public class RobotVision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
+		Imgproc.blur(mat, mat, new Size(4, 4));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -78,50 +105,22 @@ public class RobotVision {
 		return blobs;
 	}
 
-	public ArrayList<Rect> HLSgetBlobs() {
-		Mat mat = cam.getRawImage();
+	public ArrayList<Rect> getBlobs(Mat src, int minarea, int blur, Scalar minc, Scalar maxc) {
+		Mat mat = src.clone();
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
-		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HLS);
-		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
+		Imgproc.blur(mat, mat, new Size(blur, blur));
+		Core.inRange(mat, minc, maxc, mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
 			MatOfPoint mop = c.get(i);
 			if (mop != null) {
-				blobs.add(Imgproc.boundingRect(mop));
+				Rect r = Imgproc.boundingRect(mop);
+				if (r.area() > minarea) {
+					blobs.add(r);
+				}
 			}
-		}
-		return blobs;
-	}
 
-	public ArrayList<Rect> HSVgetBlobs() {
-		Mat mat = cam.getRawImage();
-		ArrayList<Rect> blobs = new ArrayList<Rect>();
-		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
-		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
-		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-		for (int i = 0; i < c.size(); i++) {
-			MatOfPoint mop = c.get(i);
-			if (mop != null) {
-				blobs.add(Imgproc.boundingRect(mop));
-			}
-		}
-		return blobs;
-	}
-
-	public ArrayList<Rect> RGBgetBlobs() {
-		Mat mat = cam.getRawImage();
-		ArrayList<Rect> blobs = new ArrayList<Rect>();
-		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
-		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
-		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
-		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-		for (int i = 0; i < c.size(); i++) {
-			MatOfPoint mop = c.get(i);
-			if (mop != null) {
-				blobs.add(Imgproc.boundingRect(mop));
-			}
 		}
 		return blobs;
 	}
@@ -134,8 +133,14 @@ public class RobotVision {
 		return 0;
 	}
 
-	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	public Mat showBlobs(Mat src, ArrayList<Rect> blobs, Scalar color) {
+		Mat mat = src.clone();
+		for (int i = 0; i < blobs.size(); i++) {
+			Rect r = blobs.get(i);
+			if (r != null) {
+				Imgproc.rectangle(mat, r.tl(), r.br(), color, 2);
+			}
+		}
+		return mat;
 	}
-
 }
