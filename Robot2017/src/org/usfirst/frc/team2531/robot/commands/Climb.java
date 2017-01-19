@@ -37,7 +37,7 @@ public class Climb extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.climber.set(0);
+		Robot.climber.stop();
 		System.out.println("-! Climb");
 	}
 

@@ -42,7 +42,7 @@ public class PID {
 	}
 
 	public boolean onTarget() {
-		return this.setpoint + this.offset > this.output && this.setpoint - this.offset < this.output;
+		return this.setpoint + this.offset > this.input && this.setpoint - this.offset < this.input;
 	}
 
 	public double compute(double in) {

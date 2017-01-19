@@ -10,16 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	private Jaguar FL = new Jaguar(0);
 	private Jaguar FR = new Jaguar(1);
 	private Jaguar BL = new Jaguar(2);
 	private Jaguar BR = new Jaguar(3);
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new Drive());
 	}
 
@@ -29,5 +25,12 @@ public class DriveSystem extends Subsystem {
 		FR.set((Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
 		BL.set(-(Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
 		BR.set((Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
+	}
+
+	public void stop() {
+		FL.set(0);
+		FR.set(0);
+		BL.set(0);
+		BR.set(0);
 	}
 }

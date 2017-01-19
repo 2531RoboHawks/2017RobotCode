@@ -26,8 +26,10 @@ public class Vision {
 	public Vision(String name, int dev) {
 		UsbCamera cam = new UsbCamera(name, dev);
 		cam.setResolution(640, 480);
+		cam.setFPS(30);
 		sink = CameraServer.getInstance().getVideo(cam);
 		source = CameraServer.getInstance().putVideo(name, 640, 480);
+		source.setFPS(30);
 	}
 
 	public Mat getImage() {
@@ -59,7 +61,7 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HLS);
-		Imgproc.blur(mat, mat, new Size(4, 4));
+		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -76,7 +78,7 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);
-		Imgproc.blur(mat, mat, new Size(4, 4));
+		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -93,7 +95,7 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
-		Imgproc.blur(mat, mat, new Size(4, 4));
+		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -101,26 +103,6 @@ public class Vision {
 			if (mop != null) {
 				blobs.add(Imgproc.boundingRect(mop));
 			}
-		}
-		return blobs;
-	}
-
-	public ArrayList<Rect> getBlobs(Mat src, int minarea, int blur, Scalar minc, Scalar maxc) {
-		Mat mat = src.clone();
-		ArrayList<Rect> blobs = new ArrayList<Rect>();
-		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
-		Imgproc.blur(mat, mat, new Size(blur, blur));
-		Core.inRange(mat, minc, maxc, mat);
-		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-		for (int i = 0; i < c.size(); i++) {
-			MatOfPoint mop = c.get(i);
-			if (mop != null) {
-				Rect r = Imgproc.boundingRect(mop);
-				if (r.area() > minarea) {
-					blobs.add(r);
-				}
-			}
-
 		}
 		return blobs;
 	}
@@ -142,5 +124,15 @@ public class Vision {
 			}
 		}
 		return mat;
+	}
+
+	public ArrayList<Rect> filterArea(ArrayList<Rect> src, int minarea) {
+		for (int i = 0; i < src.size(); i++) {
+			Rect r = src.get(i);
+			if (r != null && r.area() < minarea) {
+				src.remove(i);
+			}
+		}
+		return src;
 	}
 }
