@@ -4,6 +4,7 @@ package org.usfirst.frc.team2531.robot;
 import org.usfirst.frc.team2531.robot.commands.Track;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team2531.robot.subsystems.Gimbal;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSystem drive;
 	public static Climber climber;
+	public static Gimbal gimbal;
 
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
@@ -30,8 +32,9 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		oi = new OI();
 		drive = new DriveSystem();
-		RobotMap.imu.calibrate();
+		gimbal = new Gimbal();
 		RobotMap.cam0 = new Vision("cam0", 0);
+		RobotMap.cam1 = new Vision("cam1", 1);
 		initSmartDashboard();
 	}
 
@@ -44,6 +47,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		RobotMap.cam0.showLive();
 	}
 
 	@Override
@@ -73,6 +77,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		RobotMap.cam0.showLive();
 	}
 
 	@Override
