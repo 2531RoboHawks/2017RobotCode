@@ -48,6 +48,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		RobotMap.cam0.showLive();
+		RobotMap.cam1.showLive();
 	}
 
 	@Override
@@ -63,6 +64,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		RobotMap.cam0.showLive();
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Vision {
 	public Vision(String name, int dev) {
 		UsbCamera cam = new UsbCamera(name, dev);
 		cam.setResolution(640, 480);
-		cam.setFPS(30);
+		cam.setFPS(15);
 		sink = CameraServer.getInstance().getVideo(cam);
 		source = CameraServer.getInstance().putVideo(name, 640, 480);
 		source.setFPS(30);
