@@ -35,9 +35,9 @@ public class Track extends Command {
 	}
 
 	protected void execute() {
-		Mat mat = RobotMap.cam1.getImage();
-		RobotMap.cam1.setColor(100, 255, 0, 50, 0, 50);
-		ArrayList<Rect> l = RobotMap.cam1.filterArea(RobotMap.cam1.RGBgetBlobs(mat), 200);
+		Mat mat = RobotMap.cam0.getImage();
+		RobotMap.cam0.setColor(60, 110, 250, 255, 215, 240);
+		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < l.size(); i++) {
@@ -52,17 +52,17 @@ public class Track extends Command {
 			y /= l.size();
 			last_x = x;
 			last_y = y;
-			mat = RobotMap.cam1.showBlobs(mat, l, new Scalar(0, 255, 0));
+			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
 			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 5);
 			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 5);
 			turn_power = -turn.compute(x);
 			move_power = move.compute(y);
 			Robot.drive.axisdrive(0, move_power, turn_power);
-			RobotMap.cam1.putImage(mat);
+			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, 480), new Scalar(0, 255, 0), 5);
 			Imgproc.line(mat, new Point(0, last_y), new Point(640, last_y), new Scalar(0, 255, 0), 5);
-			RobotMap.cam1.putImage(mat);
+			RobotMap.cam0.putImage(mat);
 			turn_power = -turn.compute(last_x);
 			Robot.drive.axisdrive(0, 0, turn_power);
 		}
