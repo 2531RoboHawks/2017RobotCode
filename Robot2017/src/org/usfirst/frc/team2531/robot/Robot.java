@@ -37,12 +37,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		System.out.println("# Robot");
+		RobotMap.cam0 = new Vision("cam0", 0);
 		climber = new Climber();
-		oi = new OI();
 		drive = new DriveSystem();
 		gimbal = new Gimbal();
-		RobotMap.cam0 = new Vision("cam0", 0);
-		// RobotMap.cam1 = new Vision("cam1", 1);
+		oi = new OI();
 		initSmartDashboard();
 	}
 
@@ -58,8 +57,8 @@ public class Robot extends IterativeRobot {
 		// RobotMap.cam0.showLive();
 		// RobotMap.cam1.showLive();
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(82, 84, 200, 255, 200, 255);
-		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.HSVgetBlobs(mat), 200);
+		RobotMap.cam0.setColor(100, 255, 0, 50, 0, 50);
+		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < l.size(); i++) {
