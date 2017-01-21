@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public int min1 = 0, min2 = 0, min3 = 0, max1 = 255, max2 = 255, max3 = 255;
+	public int min1 = 180, min2 = 210, min3 = 80, max1 = 255, max2 = 255, max3 = 110;
 
 	@Override
 	public void robotInit() {
