@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
 		// RobotMap.cam0.showLive();
 		// RobotMap.cam1.showLive();
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(60, 120, 240, 255, 210, 250);
+		RobotMap.cam0.setColor(20, 120, 200, 255, 170, 200);
 		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
 		int x = 0;
 		int y = 0;
