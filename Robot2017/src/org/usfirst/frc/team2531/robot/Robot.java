@@ -34,6 +34,8 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
+	public int min1 = 0, min2 = 0, min3 = 0, max1 = 255, max2 = 255, max3 = 255;
+
 	@Override
 	public void robotInit() {
 		System.out.println("# Robot");
@@ -57,7 +59,7 @@ public class Robot extends IterativeRobot {
 		// RobotMap.cam0.showLive();
 		// RobotMap.cam1.showLive();
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(100, 255, 0, 50, 0, 50);
+		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
 		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
 		int x = 0;
 		int y = 0;
@@ -125,8 +127,20 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Vision Tracking", new Track(false));
 		auto.addObject("Time Drive", new TimeDrive(1000));
 		SmartDashboard.putData("Autonomous Mode", auto);
+		SmartDashboard.putNumber("min1", min1);
+		SmartDashboard.putNumber("min2", min2);
+		SmartDashboard.putNumber("min3", min3);
+		SmartDashboard.putNumber("max1", max1);
+		SmartDashboard.putNumber("max2", max2);
+		SmartDashboard.putNumber("max3", max3);
 	}
 
 	public void updateSmartDashboard() {
+		min1 = (int) SmartDashboard.getNumber("min1", min1);
+		min2 = (int) SmartDashboard.getNumber("min2", min2);
+		min3 = (int) SmartDashboard.getNumber("min3", min3);
+		max1 = (int) SmartDashboard.getNumber("max1", max1);
+		max2 = (int) SmartDashboard.getNumber("max2", max2);
+		max3 = (int) SmartDashboard.getNumber("max3", max3);
 	}
 }
