@@ -124,7 +124,7 @@ public class Robot extends IterativeRobot {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
 		auto.addObject("Vision Tracking", new Track(false));
-		audo.addObject("Time Drive", new TimeDrive(1000));
+		auto.addObject("Time Drive", new TimeDrive(1000));
 		SmartDashboard.putData("Autonomous Mode", auto);
 	}
 
