@@ -36,8 +36,8 @@ public class Track extends Command {
 
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(60, 110, 250, 255, 215, 240);
-		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
+		RobotMap.cam0.setColor(82, 84, 200, 255, 200, 255);
+		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.HSVgetBlobs(mat), 200);
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < l.size(); i++) {
