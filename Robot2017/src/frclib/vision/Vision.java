@@ -59,7 +59,6 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HLS);
-		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -76,7 +75,6 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);
-		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
@@ -93,7 +91,6 @@ public class Vision {
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
-		Imgproc.blur(mat, mat, new Size(20, 20));
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {

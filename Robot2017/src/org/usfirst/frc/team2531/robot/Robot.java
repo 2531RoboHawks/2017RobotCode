@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public int min1 = 180, min2 = 210, min3 = 80, max1 = 255, max2 = 255, max3 = 110;
+	public int min1 = 80, min2 = 180, min3 = 180, max1 = 140, max2 = 255, max3 = 255, b = 0;
 
 	@Override
 	public void robotInit() {
@@ -59,8 +59,8 @@ public class Robot extends IterativeRobot {
 		// RobotMap.cam0.showLive();
 		// RobotMap.cam1.showLive();
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 200);
+		RobotMap.cam0.setColor(min1 + b, max1 + b, min2 + b, max2 + b, min3 + b, max3 + b);
+		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 1000);
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < l.size(); i++) {
@@ -74,12 +74,10 @@ public class Robot extends IterativeRobot {
 			x /= l.size();
 			y /= l.size();
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
-			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 2);
-			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 2);
+			//Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 2);
+			//Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 2);
 			RobotMap.cam0.putImage(mat);
-		} else {
-			RobotMap.cam0.showLive();
-		}
+		} 
 
 	}
 
@@ -111,7 +109,27 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		RobotMap.cam0.showLive();
+		Mat mat = RobotMap.cam0.getImage();
+		RobotMap.cam0.setColor(min1 + b, max1 + b, min2 + b, max2 + b, min3 + b, max3 + b);
+		ArrayList<Rect> l = RobotMap.cam0.filterArea(RobotMap.cam0.RGBgetBlobs(mat), 1000);
+		int x = 0;
+		int y = 0;
+		for (int i = 0; i < l.size(); i++) {
+			Rect r = l.get(i);
+			if (r != null) {
+				x = r.x + (r.width / 2);
+				y = r.y + (r.height / 2);
+			}
+		}
+		if (!l.isEmpty()) {
+			x /= l.size();
+			y /= l.size();
+			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
+			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 2);
+			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 2);
+			RobotMap.cam0.putImage(mat);
+		} 
+
 	}
 
 	@Override
@@ -133,6 +151,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("max1", max1);
 		SmartDashboard.putNumber("max2", max2);
 		SmartDashboard.putNumber("max3", max3);
+		SmartDashboard.putNumber("b", b);
 	}
 
 	public void updateSmartDashboard() {
@@ -142,5 +161,6 @@ public class Robot extends IterativeRobot {
 		max1 = (int) SmartDashboard.getNumber("max1", max1);
 		max2 = (int) SmartDashboard.getNumber("max2", max2);
 		max3 = (int) SmartDashboard.getNumber("max3", max3);
+		b = (int) SmartDashboard.getNumber("b", b);
 	}
 }
