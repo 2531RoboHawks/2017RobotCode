@@ -1,8 +1,10 @@
 
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.commands.Demo;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
 import org.usfirst.frc.team2531.robot.commands.Track;
+import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team2531.robot.subsystems.Gimbal;
@@ -27,7 +29,7 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public int min1 = 80, min2 = 180, min3 = 180, max1 = 140, max2 = 255, max3 = 255, b = 0;
+	public int min1 = 80, min2 = 180, min3 = 180, max1 = 140, max2 = 255, max3 = 255;
 
 	@Override
 	public void robotInit() {
@@ -37,6 +39,9 @@ public class Robot extends IterativeRobot {
 		drive = new DriveSystem();
 		gimbal = new Gimbal();
 		oi = new OI();
+		RobotMap.imu.calibrate();
+		RobotMap.imu.reset();
+		RobotMap.heading = 0;
 		initSmartDashboard();
 	}
 
@@ -79,7 +84,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		//RobotMap.cam0.showLive();
+		// RobotMap.cam0.showLive();
 	}
 
 	@Override
@@ -121,24 +126,16 @@ public class Robot extends IterativeRobot {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
 		auto.addObject("Vision Tracking", new Track(false));
-		auto.addObject("Time Drive", new TimeDrive(500, 0.5));
+		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
+		auto.addObject("Turn", new Turn2Angle(90));
+		auto.addObject("Demo", new Demo());
 		SmartDashboard.putData("Autonomous Mode", auto);
-		SmartDashboard.putNumber("min1", min1);
-		SmartDashboard.putNumber("min2", min2);
-		SmartDashboard.putNumber("min3", min3);
-		SmartDashboard.putNumber("max1", max1);
-		SmartDashboard.putNumber("max2", max2);
-		SmartDashboard.putNumber("max3", max3);
-		SmartDashboard.putNumber("b", b);
+		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ());
 	}
 
 	public void updateSmartDashboard() {
-		min1 = (int) SmartDashboard.getNumber("min1", min1);
-		min2 = (int) SmartDashboard.getNumber("min2", min2);
-		min3 = (int) SmartDashboard.getNumber("min3", min3);
-		max1 = (int) SmartDashboard.getNumber("max1", max1);
-		max2 = (int) SmartDashboard.getNumber("max2", max2);
-		max3 = (int) SmartDashboard.getNumber("max3", max3);
-		b = (int) SmartDashboard.getNumber("b", b);
+		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ());
 	}
 }

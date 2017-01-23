@@ -14,6 +14,7 @@ public class PID {
 	private double outMin = 0.0;
 	private double Iop = 0.0;
 	private double offset = 0.0;
+	private int c = 0;
 
 	public PID(double p, double i, double d, double setpoint) {
 		this.kp = p;
@@ -42,7 +43,12 @@ public class PID {
 	}
 
 	public boolean onTarget() {
-		return this.setpoint + this.offset > this.input && this.setpoint - this.offset < this.input;
+		if (this.setpoint + this.offset > this.input && this.setpoint - this.offset < this.input) {
+			c += 1;
+		} else {
+			c = 0;
+		}
+		return c > 10;
 	}
 
 	public double compute(double in) {
@@ -60,7 +66,6 @@ public class PID {
 		} else if (this.output < this.outMin) {
 			this.output = this.outMin;
 		}
-
 		return this.output;
 	}
 }

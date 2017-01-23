@@ -8,29 +8,29 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class TimeDrive extends Command {
-	long endTime;
-	boolean end;
-	double pow;
+	private long endTime;
+	private boolean end;
+	private long time;
+	private double pow;
 
 	public TimeDrive(long t, double p) {
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drive);
 		pow = p;
-		endTime = System.currentTimeMillis() + t;
+		time = t;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		System.out.println("->TimeDrive");
+		endTime = time + System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		Robot.drive.axisdrive(0, -pow, 0);
-		if (System.currentTimeMillis() > endTime) {
+		if (endTime < System.currentTimeMillis()) {
 			end = true;
 		}
-
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -40,6 +40,7 @@ public class TimeDrive extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		end = false;
 		Robot.drive.stop();
 	}
 
