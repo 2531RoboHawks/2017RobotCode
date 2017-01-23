@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Demo extends CommandGroup {
 
 	public Demo() {
-		addSequential(new TimeDrive(500, 0.5));
+		addSequential(new TimeDrive(1000, 0.5));
 		addSequential(new Turn2Angle(90));
-		addSequential(new TimeDrive(500, 0.5));
+		addSequential(new TimeDrive(1000, 0.5));
 		addSequential(new Turn2Angle(90));
-		addSequential(new TimeDrive(500, 0.5));
+		addSequential(new TimeDrive(1000, 0.5));
 		addSequential(new Turn2Angle(90));
-		addSequential(new TimeDrive(500, 0.5));
+		addSequential(new TimeDrive(1000, 0.5));
 		addSequential(new Turn2Angle(90));
 	}
 }

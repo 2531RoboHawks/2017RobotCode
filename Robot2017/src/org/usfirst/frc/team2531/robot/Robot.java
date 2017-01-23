@@ -1,7 +1,10 @@
 
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.commands.Center;
 import org.usfirst.frc.team2531.robot.commands.Demo;
+import org.usfirst.frc.team2531.robot.commands.Left;
+import org.usfirst.frc.team2531.robot.commands.Right;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
 import org.usfirst.frc.team2531.robot.commands.Track;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
@@ -129,6 +132,9 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn", new Turn2Angle(90));
 		auto.addObject("Demo", new Demo());
+		auto.addObject("Left", new Left());
+		auto.addObject("Center", new Center());
+		auto.addObject("Right", new Right());
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ());
