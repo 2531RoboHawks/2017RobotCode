@@ -14,13 +14,18 @@ public class PID {
 	private double outMin = 0.0;
 	private double Iop = 0.0;
 	private double offset = 0.0;
-	private int c = 0;
+	private int ontargets = 0;
+	private int ontarget = 10;
 
 	public PID(double p, double i, double d, double setpoint) {
 		this.kp = p;
 		this.ki = i;
 		this.kd = d;
 		this.setpoint = setpoint;
+	}
+
+	public void setOnTargetCount(int count) {
+		ontarget = count;
 	}
 
 	public void setTunings(double p, double i, double d) {
@@ -44,11 +49,11 @@ public class PID {
 
 	public boolean onTarget() {
 		if (this.setpoint + this.offset > this.input && this.setpoint - this.offset < this.input) {
-			c += 1;
+			ontargets += 1;
 		} else {
-			c = 0;
+			ontargets = 0;
 		}
-		return c > 10;
+		return ontargets > ontarget;
 	}
 
 	public double compute(double in) {
