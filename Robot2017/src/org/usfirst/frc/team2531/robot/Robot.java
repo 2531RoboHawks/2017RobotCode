@@ -43,7 +43,6 @@ public class Robot extends IterativeRobot {
 		gimbal = new Gimbal();
 		oi = new OI();
 		RobotMap.imu.calibrate();
-		RobotMap.imu.reset();
 		RobotMap.heading = 0;
 		initSmartDashboard();
 	}
@@ -51,6 +50,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		System.out.println("# Disabled");
+		RobotMap.imu.reset();
 	}
 
 	@Override
@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("# Autonomous");
+		RobotMap.imu.reset();
 		autocommand = (Command) auto.getSelected();
 		if (autocommand != null) {
 			autocommand.start();
@@ -93,6 +94,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 		System.out.println("# Teleop");
+		RobotMap.imu.reset();
 		if (autocommand != null) {
 			autocommand.cancel();
 		}
@@ -137,11 +139,11 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Right", new Right());
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ());
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
 	}
 
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ());
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
 	}
 }
