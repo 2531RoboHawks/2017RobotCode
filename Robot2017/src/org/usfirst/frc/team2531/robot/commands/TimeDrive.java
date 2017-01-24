@@ -1,8 +1,10 @@
 package org.usfirst.frc.team2531.robot.commands;
 
 import org.usfirst.frc.team2531.robot.Robot;
+import org.usfirst.frc.team2531.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frclib.pid.PID;
 
 /**
  *
@@ -12,22 +14,28 @@ public class TimeDrive extends Command {
 	private boolean end;
 	private long time;
 	private double pow;
+	private PID pid;
 
 	public TimeDrive(long t, double p) {
 		requires(Robot.drive);
 		pow = p;
 		time = t;
+
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		System.out.println("->TimeDrive");
 		endTime = time + System.currentTimeMillis();
+		pid = new PID(0.001, 0.0, 0.0, RobotMap.heading);
+		pid.setOutputLimits(-0.5, 0.5);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.axisdrive(0, -pow, 0);
+		double t;
+		t = pid.compute(RobotMap.imu.getAngleZ() / 4);
+		Robot.drive.axisdrive(0, -pow, t);
 		if (endTime < System.currentTimeMillis()) {
 			end = true;
 		}
