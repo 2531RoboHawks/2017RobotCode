@@ -10,6 +10,7 @@ import org.usfirst.frc.team2531.robot.commands.Track;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team2531.robot.subsystems.Gear;
 import org.usfirst.frc.team2531.robot.subsystems.Gimbal;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,6 +27,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSystem drive;
 	public static Climber climber;
 	public static Gimbal gimbal;
+	public static Gear gear;
 
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
@@ -41,6 +43,7 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		drive = new DriveSystem();
 		gimbal = new Gimbal();
+		gear = new Gear();
 		oi = new OI();
 		RobotMap.imu.calibrate();
 		RobotMap.heading = 0;
