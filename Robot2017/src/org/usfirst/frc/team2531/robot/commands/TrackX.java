@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackX extends Command {
 
-	private PID move = new PID(0.06, 0, 0, 320);
+	private PID move = new PID(0.08, 0, 0, 320);
 	private double move_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
@@ -53,7 +53,7 @@ public class TrackX extends Command {
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
 			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 5);
 			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 5);
-			move_power = move.compute(x);
+			move_power = move.compute2(x);
 			Robot.drive.axisdrive(move_power, 0, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
