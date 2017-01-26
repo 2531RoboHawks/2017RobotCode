@@ -16,6 +16,12 @@ public class PID {
 	private double offset = 0.0;
 	private int ontargets = 0;
 	private int ontarget = 10;
+	private double P = 0;
+	private double I = 0;
+	private double D = 0;
+	private double lasterror = 0;
+	private long looptime = 100;
+	private long lastcompute = 0;
 
 	public PID(double p, double i, double d, double setpoint) {
 		this.kp = p;
@@ -26,6 +32,10 @@ public class PID {
 
 	public void setOnTargetCount(int count) {
 		ontarget = count;
+	}
+
+	public void setLoopTime(long milis) {
+		looptime = milis;
 	}
 
 	public void setTunings(double p, double i, double d) {
@@ -66,6 +76,25 @@ public class PID {
 		}
 		this.output = this.kp * this.error + this.Iop - this.kd * this.inputChange;
 		this.lastInput = this.input;
+		if (this.output > this.outMax) {
+			this.output = this.outMax;
+		} else if (this.output < this.outMin) {
+			this.output = this.outMin;
+		}
+		return this.output;
+	}
+
+	public double compute2(double in) {
+		if (System.currentTimeMillis() > lastcompute) {
+			this.input = in;
+			this.error = this.setpoint - this.input;
+			P = kp * error;
+			I = ki * (I + (error * looptime));
+			D = kd * ((error - lasterror) / looptime);
+			output = P + I + D;
+			lasterror = error;
+			lastcompute = System.currentTimeMillis() + looptime;
+		}
 		if (this.output > this.outMax) {
 			this.output = this.outMax;
 		} else if (this.output < this.outMin) {
