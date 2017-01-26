@@ -7,7 +7,6 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CvSink;
@@ -119,15 +118,5 @@ public class Vision {
 			}
 		}
 		return mat;
-	}
-
-	public ArrayList<Rect> filterArea(ArrayList<Rect> src, int minarea) {
-		for (int i = 0; i < src.size(); i++) {
-			Rect r = src.get(i);
-			if (r != null && r.area() < minarea) {
-				src.remove(i);
-			}
-		}
-		return src;
 	}
 }
