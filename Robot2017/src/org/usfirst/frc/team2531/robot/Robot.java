@@ -11,9 +11,9 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2531.robot.commands.Center;
 import org.usfirst.frc.team2531.robot.commands.Demo;
 import org.usfirst.frc.team2531.robot.commands.Left;
-import org.usfirst.frc.team2531.robot.commands.LineUpGear;
 import org.usfirst.frc.team2531.robot.commands.Right;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
+import org.usfirst.frc.team2531.robot.commands.TrackX;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		//RobotMap.cam0.showLive();
+		// RobotMap.cam0.showLive();
 		// RobotMap.cam1.showLive();
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
 			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 2);
 			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 2);
-			 RobotMap.cam0.putImage(mat);
+			RobotMap.cam0.putImage(mat);
 		}
 
 	}
@@ -141,7 +141,7 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Vision Tracking", new LineUpGear());
+		auto.addObject("Vision Tracking", new TrackX(true));
 		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn", new Turn2Angle(90));
 		auto.addObject("Demo", new Demo());
