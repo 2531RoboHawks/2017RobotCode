@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 		gimbal = new Gimbal();
 		gear = new GearMechanisim();
 		oi = new OI();
-		RobotMap.imu.calibrate();
+		RobotMap.imu.reset();
 		RobotMap.heading = 0;
 		initSmartDashboard();
 	}

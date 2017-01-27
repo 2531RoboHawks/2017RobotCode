@@ -11,7 +11,7 @@ import frclib.pid.PID;
  */
 public class Turn2Angle extends Command {
 
-	private PID pid = new PID(0.008, 0.006, 0, 0);
+	private PID pid = new PID(0.008, 0.005, 0, 0);
 	private double degrees = 0;
 
 	public Turn2Angle(double degrees) {
@@ -23,7 +23,7 @@ public class Turn2Angle extends Command {
 		System.out.println("-> Turn2Angle");
 		RobotMap.heading += degrees;
 		pid.setSetpoint(RobotMap.heading);
-		pid.setOnTargetOffset(1);
+		pid.setOnTargetOffset(2);
 		pid.setOutputLimits(-0.4, 0.4);
 		pid.setOnTargetCount(10);
 		pid.setLoopTime(10);

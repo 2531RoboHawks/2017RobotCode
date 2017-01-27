@@ -5,36 +5,34 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Delay extends Command {
 
 	boolean done = false;
-	int milliseconds;
+	long milliseconds;
+	long endtime = 0;
 
-	public Delay(int millis) {
+	public Delay(long millis) {
 		milliseconds = millis;
 	}
 
 	protected void initialize() {
-		Thread t = new Thread() {
-			public void run() {
-				Time.delayMiliseconds(milliseconds);
-				done = true;
-			}
-		};
-		t.start();
+		System.out.println("-> Delay");
+		endtime = System.currentTimeMillis() + milliseconds;
+		done = false;
 	}
 
 	protected void execute() {
-
+		if (System.currentTimeMillis() > endtime) {
+			done = true;
+		}
 	}
 
 	protected boolean isFinished() {
 		return done;
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
+		System.out.println("-! Delay");
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

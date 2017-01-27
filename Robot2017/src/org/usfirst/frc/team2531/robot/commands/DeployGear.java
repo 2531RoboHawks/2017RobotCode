@@ -9,34 +9,42 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DeployGear extends Command {
-	boolean done;
+
+	boolean done, state, toggle;
 
 	public DeployGear() {
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.gear);
+		done = false;
+		toggle = false;
 	}
 
-	// Called just before this Command runs the first time
+	public DeployGear(boolean s) {
+		requires(Robot.gear);
+		state = s;
+		done = false;
+		toggle = true;
+	}
+
 	protected void initialize() {
-		System.out.println("-> MoveGear");
-
+		System.out.println("-> DeployGear");
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.gear.set(OI.gamepad.getRawButton(6));
-
+		if (toggle) {
+			Robot.gear.set(state);
+			done = true;
+		} else {
+			Robot.gear.set(OI.gamepad.getRawButton(6));
+		}
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return done;
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
 		Robot.gear.set(false);
-		System.out.println("-! MoveGear");
+		System.out.println("-! DeployGear");
 	}
 
 	// Called when another command which requires one or more of the same

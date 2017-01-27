@@ -44,8 +44,9 @@ public class Track extends Command {
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
 			if (r != null && r.area() > 2000) {
-				x = r.x + (r.width / 2);
-				y = r.y + (r.height / 2);
+				x += r.x + (r.width / 2);
+				y += r.y + (r.height / 2);
+				size+=1;
 			}
 		}
 		if (size > 0) {

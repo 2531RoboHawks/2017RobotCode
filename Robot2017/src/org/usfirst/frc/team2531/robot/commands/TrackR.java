@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackR extends Command {
 
-	private PID turn = new PID(0.008, 0.006, 0, 0);
+	private PID turn = new PID(0.008, 0.005, 0, 0);
 	private double turn_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
@@ -28,7 +28,11 @@ public class TrackR extends Command {
 
 	protected void initialize() {
 		System.out.println("-> TrackR");
-		turn.setOutputLimits(-0.5, 0.5);
+		turn.setSetpoint(RobotMap.heading);
+		turn.setOnTargetOffset(2);
+		turn.setOutputLimits(-0.4, 0.4);
+		turn.setOnTargetCount(10);
+		turn.setLoopTime(10);
 	}
 
 	protected void execute() {
@@ -41,8 +45,9 @@ public class TrackR extends Command {
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
 			if (r != null && r.area() > 2000) {
-				x = r.x + (r.width / 2);
-				y = r.y + (r.height / 2);
+				x += r.x + (r.width / 2);
+				y += r.y + (r.height / 2);
+				size += 1;
 			}
 		}
 		if (size > 0) {

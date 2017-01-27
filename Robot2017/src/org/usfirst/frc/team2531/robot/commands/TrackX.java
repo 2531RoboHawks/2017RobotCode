@@ -28,7 +28,11 @@ public class TrackX extends Command {
 
 	protected void initialize() {
 		System.out.println("-> TrackX");
+		move.setSetpoint(RobotMap.heading);
+		move.setOnTargetOffset(2);
 		move.setOutputLimits(-0.5, 0.5);
+		move.setOnTargetCount(10);
+		move.setLoopTime(10);
 	}
 
 	protected void execute() {
@@ -41,8 +45,9 @@ public class TrackX extends Command {
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
 			if (r != null && r.area() > 2000) {
-				x = r.x + (r.width / 2);
-				y = r.y + (r.height / 2);
+				x += r.x + (r.width / 2);
+				y += r.y + (r.height / 2);
+				size += 1;
 			}
 		}
 		if (size > 0) {
@@ -60,7 +65,6 @@ public class TrackX extends Command {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, 480), new Scalar(0, 255, 0), 5);
 			Imgproc.line(mat, new Point(0, last_y), new Point(640, last_y), new Scalar(0, 255, 0), 5);
 			RobotMap.cam0.putImage(mat);
-			// Robot.drive.axisdrive(0, 0, turn_power);
 			Robot.drive.stop();
 		}
 	}

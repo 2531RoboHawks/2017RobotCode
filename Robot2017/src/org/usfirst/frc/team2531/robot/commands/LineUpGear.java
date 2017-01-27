@@ -8,6 +8,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LineUpGear extends CommandGroup {
 
 	public LineUpGear() {
-		addSequential(new TrackX(true));
+		addSequential(new TrackR(true));
 	}
 }
