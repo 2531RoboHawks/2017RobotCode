@@ -7,15 +7,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Gimbal extends Subsystem {
 
-	private Servo lift = new Servo(7);
 	private Servo rotate = new Servo(6);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new MoveGimbal());
 	}
 
-	public void setAngles(double pan, double tilt) {
-		lift.set(tilt);
+	public void setAngles(double pan) {
 		rotate.set(pan);
 	}
 }

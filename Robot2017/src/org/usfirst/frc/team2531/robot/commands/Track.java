@@ -32,6 +32,8 @@ public class Track extends Command {
 		System.out.println("-> Track");
 		turn.setOutputLimits(-0.5, 0.5);
 		move.setOutputLimits(-0.5, 0.5);
+		last_x = 0;
+		last_y = 0;
 	}
 
 	protected void execute() {

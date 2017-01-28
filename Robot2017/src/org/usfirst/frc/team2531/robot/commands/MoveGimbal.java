@@ -11,9 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveGimbal extends Command {
 
 	double pan = 0.5;
-	double tilt = 0.3;
 
-	double inc = 0.1;
+	double inc = 0.01;
 
 	public MoveGimbal() {
 		requires(Robot.gimbal);
@@ -25,12 +24,8 @@ public class MoveGimbal extends Command {
 
 	protected void execute() {
 		if (OI.gamepad.getPOV() != -1) {
-			if (OI.gamepad.getPOV() == 0) {
-				tilt += inc;
-			} else if (OI.gamepad.getPOV() == 90) {
+			if (OI.gamepad.getPOV() == 90) {
 				pan += inc;
-			} else if (OI.gamepad.getPOV() == 180) {
-				tilt -= inc;
 			} else if (OI.gamepad.getPOV() == 270) {
 				pan -= inc;
 			}
@@ -41,13 +36,7 @@ public class MoveGimbal extends Command {
 		if (pan < 0) {
 			pan = 0;
 		}
-		if (tilt > 1) {
-			tilt = 1;
-		}
-		if (tilt < 0) {
-			tilt = 0;
-		}
-		Robot.gimbal.setAngles(pan, tilt);
+		Robot.gimbal.setAngles(pan);
 	}
 
 	protected boolean isFinished() {

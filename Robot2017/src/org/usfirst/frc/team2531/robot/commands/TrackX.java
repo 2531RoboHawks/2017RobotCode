@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackX extends Command {
 
-	private PID move = new PID(0.08, 0, 0, Robot.w / 2);
+	private PID move = new PID(0.1, 0, 0, Robot.w / 2);
 	private double move_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
@@ -30,9 +30,11 @@ public class TrackX extends Command {
 		System.out.println("-> TrackX");
 		move.setSetpoint(RobotMap.heading);
 		move.setOnTargetOffset(2);
-		move.setOutputLimits(-0.5, 0.5);
+		move.setOutputLimits(-0.3, 0.3);
 		move.setOnTargetCount(10);
 		move.setLoopTime(10);
+		last_x = 0;
+		last_y = 0;
 	}
 
 	protected void execute() {
@@ -58,14 +60,14 @@ public class TrackX extends Command {
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
-			move_power = move.compute2(x);
+			move_power = -move.compute2(x);
 			Robot.drive.axisdrive(move_power, 0, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, last_y), new Point(Robot.w, last_y), new Scalar(0, 255, 0), 1);
-			RobotMap.cam0.putImage(mat);
 			Robot.drive.stop();
+			RobotMap.cam0.putImage(mat);
 		}
 	}
 

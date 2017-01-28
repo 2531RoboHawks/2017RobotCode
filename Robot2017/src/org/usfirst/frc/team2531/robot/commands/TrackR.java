@@ -33,6 +33,8 @@ public class TrackR extends Command {
 		turn.setOutputLimits(-0.4, 0.4);
 		turn.setOnTargetCount(10);
 		turn.setLoopTime(10);
+		last_x = 0;
+		last_y = 0;
 	}
 
 	protected void execute() {
@@ -65,7 +67,6 @@ public class TrackR extends Command {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, last_y), new Point(Robot.w, last_y), new Scalar(0, 255, 0), 1);
 			RobotMap.cam0.putImage(mat);
-			// Robot.drive.axisdrive(0, 0, turn_power);
 			Robot.drive.stop();
 		}
 	}
