@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackR extends Command {
 
-	private PID turn = new PID(0.008, 0.005, 0, 0);
+	private PID turn = new PID(0.008, 0.005, 0, Robot.w / 2);
 	private double turn_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
@@ -56,14 +56,14 @@ public class TrackR extends Command {
 			last_x = x;
 			last_y = y;
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
-			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 5);
-			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 5);
+			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
+			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			turn_power = -turn.compute2(x);
 			Robot.drive.axisdrive(0, 0, turn_power);
 			RobotMap.cam0.putImage(mat);
 		} else {
-			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, 480), new Scalar(0, 255, 0), 5);
-			Imgproc.line(mat, new Point(0, last_y), new Point(640, last_y), new Scalar(0, 255, 0), 5);
+			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
+			Imgproc.line(mat, new Point(0, last_y), new Point(Robot.w, last_y), new Scalar(0, 255, 0), 1);
 			RobotMap.cam0.putImage(mat);
 			// Robot.drive.axisdrive(0, 0, turn_power);
 			Robot.drive.stop();

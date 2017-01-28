@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackX extends Command {
 
-	private PID move = new PID(0.08, 0, 0, 320);
+	private PID move = new PID(0.08, 0, 0, Robot.w / 2);
 	private double move_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
@@ -44,7 +44,7 @@ public class TrackX extends Command {
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null && r.area() > 2000) {
+			if (r != null && r.area() > 100) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;
@@ -56,14 +56,14 @@ public class TrackX extends Command {
 			last_x = x;
 			last_y = y;
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
-			Imgproc.line(mat, new Point(x, 0), new Point(x, 480), new Scalar(0, 255, 0), 5);
-			Imgproc.line(mat, new Point(0, y), new Point(640, y), new Scalar(0, 255, 0), 5);
+			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
+			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			move_power = move.compute2(x);
 			Robot.drive.axisdrive(move_power, 0, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
-			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, 480), new Scalar(0, 255, 0), 5);
-			Imgproc.line(mat, new Point(0, last_y), new Point(640, last_y), new Scalar(0, 255, 0), 5);
+			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
+			Imgproc.line(mat, new Point(0, last_y), new Point(Robot.w, last_y), new Scalar(0, 255, 0), 1);
 			RobotMap.cam0.putImage(mat);
 			Robot.drive.stop();
 		}

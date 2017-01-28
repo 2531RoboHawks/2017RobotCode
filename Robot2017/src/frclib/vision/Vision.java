@@ -24,9 +24,16 @@ public class Vision {
 
 	public Vision(String name, int dev) {
 		UsbCamera cam = new UsbCamera(name, dev);
-		cam.setResolution(640, 480);
+		cam.setResolution(320, 240);
 		sink = CameraServer.getInstance().getVideo(cam);
-		source = CameraServer.getInstance().putVideo(name, 640, 480);
+		source = CameraServer.getInstance().putVideo(name, 320, 240);
+	}
+
+	public Vision(String name, int dev, int w, int h) {
+		UsbCamera cam = new UsbCamera(name, dev);
+		cam.setResolution(w, h);
+		sink = CameraServer.getInstance().getVideo(cam);
+		source = CameraServer.getInstance().putVideo(name, w, h);
 	}
 
 	public Mat getImage() {
