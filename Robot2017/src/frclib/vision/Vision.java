@@ -108,6 +108,23 @@ public class Vision {
 		return blobs;
 	}
 
+	public ArrayList<Rect> TRGBgetBlobs(Mat src, int min, int max) {
+		Mat mat = src.clone();
+		ArrayList<Rect> blobs = new ArrayList<Rect>();
+		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
+		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
+		Imgproc.threshold(mat, mat, min, max, Imgproc.THRESH_BINARY);
+		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
+		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+		for (int i = 0; i < c.size(); i++) {
+			MatOfPoint mop = c.get(i);
+			if (mop != null) {
+				blobs.add(Imgproc.boundingRect(mop));
+			}
+		}
+		return blobs;
+	}
+
 	public static double getDistance(Rect rect, double fov, int objectwidth, int imagewidth) {
 		if (rect != null) {
 			double d = objectwidth * imagewidth / (2 * rect.width * Math.tan(fov));
