@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public static int min1 = 0, min2 = 220, min3 = 180, max1 = 120, max2 = 225, max3 = 255, w = 320, h = 240;
+	public static int min1 = 0, min2 = 235, min3 = 0, max1 = 20, max2 = 225, max3 = 20, w = 320, h = 240;
 
 	@Override
 	public void robotInit() {
@@ -71,13 +71,13 @@ public class Robot extends IterativeRobot {
 		// RobotMap.cam0.showLive();
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.RGBgetBlobs(mat);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
 		int x = 0;
 		int y = 0;
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null) {
+			if (r != null && r.area() > 1000) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;
