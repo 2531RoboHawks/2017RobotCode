@@ -2,7 +2,7 @@ package org.usfirst.frc.team2531.robot.subsystems;
 
 import org.usfirst.frc.team2531.robot.commands.Drive;
 
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private Jaguar FL = new Jaguar(0);
-	private Jaguar FR = new Jaguar(1);
-	private Jaguar BL = new Jaguar(2);
-	private Jaguar BR = new Jaguar(3);
+	private Talon FL = new Talon(0);
+	private Talon FR = new Talon(1);
+	private Talon BL = new Talon(2);
+	private Talon BR = new Talon(3);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());

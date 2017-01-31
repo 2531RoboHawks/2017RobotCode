@@ -13,7 +13,7 @@ import org.usfirst.frc.team2531.robot.commands.Demo;
 import org.usfirst.frc.team2531.robot.commands.Left;
 import org.usfirst.frc.team2531.robot.commands.Right;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
-import org.usfirst.frc.team2531.robot.commands.TrackX;
+import org.usfirst.frc.team2531.robot.commands.TrackLookUp;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public static int min1 = 0, min2 = 235, min3 = 0, max1 = 20, max2 = 225, max3 = 20, w = 320, h = 240;
+	public static int min1 = 0, min2 = 235, min3 = 0, max1 = 20, max2 = 255, max3 = 20, w = 320, h = 240;
 
 	@Override
 	public void robotInit() {
@@ -69,28 +69,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		// RobotMap.cam0.showLive();
-		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
-		int x = 0;
-		int y = 0;
-		int size = 0;
-		for (int i = 0; i < l.size(); i++) {
-			Rect r = l.get(i);
-			if (r != null && r.area() > 1000) {
-				x += r.x + (r.width / 2);
-				y += r.y + (r.height / 2);
-				size += 1;
-			}
-		}
-		if (size > 0) {
-			x /= size;
-			y /= size;
-			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
-			Imgproc.line(mat, new Point(x, 0), new Point(x, h), new Scalar(0, 255, 0), 1);
-			Imgproc.line(mat, new Point(0, y), new Point(w, y), new Scalar(0, 255, 0), 1);
-		}
-		RobotMap.cam0.putImage(mat);
+		proc();
 	}
 
 	@Override
@@ -126,29 +105,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		// RobotMap.cam0.showLive();
-		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.RGBgetBlobs(mat);
-		int x = 0;
-		int y = 0;
-		int size = 0;
-		for (int i = 0; i < l.size(); i++) {
-			Rect r = l.get(i);
-			if (r != null) {
-				x += r.x + (r.width / 2);
-				y += r.y + (r.height / 2);
-				size += 1;
-			}
-		}
-		if (size > 0) {
-			x /= size;
-			y /= size;
-			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
-			Imgproc.line(mat, new Point(x, 0), new Point(x, h), new Scalar(0, 255, 0), 1);
-			Imgproc.line(mat, new Point(0, y), new Point(w, y), new Scalar(0, 255, 0), 1);
-		}
-		RobotMap.cam0.putImage(mat);
-
+		proc();
 	}
 
 	@Override
@@ -161,7 +118,7 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Vision Tracking", new TrackX(true));
+		auto.addObject("Vision Tracking", new TrackLookUp(true));
 		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn", new Turn2Angle(90));
 		auto.addObject("Demo", new Demo());
@@ -176,5 +133,30 @@ public class Robot extends IterativeRobot {
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
+	}
+
+	public void proc() {
+		Mat mat = RobotMap.cam0.getImage();
+		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
+		int x = 0;
+		int y = 0;
+		int size = 0;
+		for (int i = 0; i < l.size(); i++) {
+			Rect r = l.get(i);
+			if (r != null && r.area() > 500) {
+				x += r.x + (r.width / 2);
+				y += r.y + (r.height / 2);
+				size += 1;
+			}
+		}
+		if (size > 0) {
+			x /= size;
+			y /= size;
+			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
+			Imgproc.line(mat, new Point(x, 0), new Point(x, h), new Scalar(0, 255, 0), 1);
+			Imgproc.line(mat, new Point(0, y), new Point(w, y), new Scalar(0, 255, 0), 1);
+		}
+		RobotMap.cam0.putImage(mat);
 	}
 }

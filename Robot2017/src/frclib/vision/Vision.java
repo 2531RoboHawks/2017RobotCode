@@ -138,7 +138,7 @@ public class Vision {
 		for (int i = 0; i < blobs.size(); i++) {
 			Rect r = blobs.get(i);
 			if (r != null) {
-				Imgproc.rectangle(mat, r.tl(), r.br(), color, 2);
+				Imgproc.rectangle(mat, r.tl(), r.br(), color, 1);
 			}
 		}
 		return mat;
