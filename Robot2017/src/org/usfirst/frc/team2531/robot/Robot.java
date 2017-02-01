@@ -138,7 +138,7 @@ public class Robot extends IterativeRobot {
 	public void proc() {
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
+		ArrayList<Rect> l = RobotMap.cam0.TgetBlobs(mat, 254);
 		int x = 0;
 		int y = 0;
 		int size = 0;
