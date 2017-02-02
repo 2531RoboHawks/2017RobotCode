@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private Talon FL = new Talon(0);
-	private Talon FR = new Talon(1);
+	private Talon FL = new Talon(1);
+	private Talon FR = new Talon(0);
 	private Talon BL = new Talon(2);
 	private Talon BR = new Talon(3);
 

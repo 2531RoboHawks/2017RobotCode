@@ -40,13 +40,13 @@ public class TrackR extends Command {
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 254);
 		int x = 0;
 		int y = 0;
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null && r.area() > 500) {
+			if (r != null && r.area() > 100) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;

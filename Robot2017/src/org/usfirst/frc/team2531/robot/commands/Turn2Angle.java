@@ -11,7 +11,7 @@ import frclib.pid.PID;
  */
 public class Turn2Angle extends Command {
 
-	private PID pid = new PID(0.008, 0.005, 0, 0);
+	private PID pid = new PID(0.004, 0.002, 0, 0);
 	private double degrees = 0;
 
 	public Turn2Angle(double degrees) {

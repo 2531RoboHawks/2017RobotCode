@@ -125,21 +125,6 @@ public class Vision {
 		return blobs;
 	}
 
-	public ArrayList<Rect> TgetBlobs(Mat src, int v) {
-		Mat mat = src.clone();
-		ArrayList<Rect> blobs = new ArrayList<Rect>();
-		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
-		Imgproc.threshold(mat, mat, v, 255, Imgproc.THRESH_BINARY);
-		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-		for (int i = 0; i < c.size(); i++) {
-			MatOfPoint mop = c.get(i);
-			if (mop != null) {
-				blobs.add(Imgproc.boundingRect(mop));
-			}
-		}
-		return blobs;
-	}
-
 	public static double getDistance(Rect rect, double fov, int objectwidth, int imagewidth) {
 		if (rect != null) {
 			double d = objectwidth * imagewidth / (2 * rect.width * Math.tan(fov));

@@ -15,8 +15,10 @@ import frclib.pid.PID;
 
 public class TrackX extends Command {
 
-	private PID move = new PID(0.1, 0, 0, Robot.w / 2);
+	private PID move = new PID(0.04, 0, 0, Robot.w / 2);
+	private PID turn = new PID(0.001, 0, 0, 0);
 	private double move_power = 0;
+	private double turn_power = 0;
 	private double last_x = 0;
 	private double last_y = 0;
 	private boolean stop = false;
@@ -28,11 +30,15 @@ public class TrackX extends Command {
 
 	protected void initialize() {
 		System.out.println("-> TrackX");
-		move.setSetpoint(RobotMap.heading);
 		move.setOnTargetOffset(2);
-		move.setOutputLimits(-0.3, 0.3);
+		move.setOutputLimits(-0.2, 0.2);
 		move.setOnTargetCount(10);
-		move.setLoopTime(10);
+		move.setLoopTime(1);
+		turn.setSetpoint(RobotMap.heading);
+		turn.setOnTargetOffset(2);
+		turn.setOutputLimits(-0.4, 0.4);
+		turn.setOnTargetCount(10);
+		turn.setLoopTime(10);
 		last_x = 0;
 		last_y = 0;
 	}
@@ -40,13 +46,13 @@ public class TrackX extends Command {
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230, 255);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 254);
 		int x = 0;
 		int y = 0;
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null && r.area() > 500) {
+			if (r != null && r.area() > 100) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;
@@ -61,7 +67,8 @@ public class TrackX extends Command {
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			move_power = -move.compute2(x);
-			Robot.drive.axisdrive(move_power, 0, 0);
+			turn_power = turn.compute2(RobotMap.imu.getAngleZ() / 4);
+			Robot.drive.axisdrive(move_power, 0, turn_power);
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
