@@ -39,8 +39,9 @@ public class TrackR extends Command {
 
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 254);
+		RobotMap.cam0.setCanny(Robot.canny1, Robot.canny2);
+		RobotMap.cam0.setThreash(Robot.threash);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;

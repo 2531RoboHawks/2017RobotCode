@@ -16,7 +16,7 @@ import frclib.pid.PID;
 public class Track extends Command {
 
 	private PID turn = new PID(0.001, 0, 0, Robot.w / 2);
-	private PID move = new PID(0.005, 0, 0, Robot.h / 2);
+	private PID move = new PID(0.04, 0, 0, Robot.h / 2);
 	private double turn_power = 0;
 	private double move_power = 0;
 	private double last_x = 0;
@@ -30,16 +30,17 @@ public class Track extends Command {
 
 	protected void initialize() {
 		System.out.println("-> Track");
-		turn.setOutputLimits(-0.5, 0.5);
-		move.setOutputLimits(-0.5, 0.5);
+		turn.setOutputLimits(-0.4, 0.4);
+		move.setOutputLimits(-0.4, 0.4);
 		last_x = 0;
 		last_y = 0;
 	}
 
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 230);
+		RobotMap.cam0.setCanny(Robot.canny1, Robot.canny2);
+		RobotMap.cam0.setThreash(Robot.threash);
+		ArrayList<Rect> l = RobotMap.cam0.TSCRgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;

@@ -18,7 +18,6 @@ import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team2531.robot.subsystems.GearMechanisim;
-import org.usfirst.frc.team2531.robot.subsystems.Gimbal;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,7 +32,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSystem drive;
 	public static Climber climber;
-	public static Gimbal gimbal;
 	public static GearMechanisim gear;
 
 	@SuppressWarnings("rawtypes")
@@ -41,7 +39,8 @@ public class Robot extends IterativeRobot {
 
 	Command autocommand;
 
-	public static int min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255, max3 = 1, w = 320, h = 240;
+	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
+			max3 = 1, w = 320, h = 240;
 
 	@Override
 	public void robotInit() {
@@ -49,7 +48,6 @@ public class Robot extends IterativeRobot {
 		RobotMap.cam0 = new Vision("cam0", 0, w, h);
 		climber = new Climber();
 		drive = new DriveSystem();
-		gimbal = new Gimbal();
 		gear = new GearMechanisim();
 		oi = new OI();
 		RobotMap.imu.reset();
@@ -137,8 +135,9 @@ public class Robot extends IterativeRobot {
 
 	public void proc() {
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(min1, max1, min2, max2, min3, max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 254);
+		RobotMap.cam0.setCanny(canny1, canny1);
+		RobotMap.cam0.setThreash(threash);
+		ArrayList<Rect> l = RobotMap.cam0.TSCRgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;

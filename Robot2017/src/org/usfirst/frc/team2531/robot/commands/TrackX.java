@@ -15,8 +15,8 @@ import frclib.pid.PID;
 
 public class TrackX extends Command {
 
-	private PID move = new PID(0.04, 0, 0, Robot.w / 2);
-	private PID turn = new PID(0.001, 0, 0, 0);
+	private PID move = new PID(0.03, 0, 0, Robot.w / 2);
+	private PID turn = new PID(0.008, 0, 0, 0);
 	private double move_power = 0;
 	private double turn_power = 0;
 	private double last_x = 0;
@@ -31,13 +31,11 @@ public class TrackX extends Command {
 	protected void initialize() {
 		System.out.println("-> TrackX");
 		move.setOnTargetOffset(2);
-		move.setOutputLimits(-0.2, 0.2);
-		move.setOnTargetCount(10);
-		move.setLoopTime(1);
+		move.setOutputLimits(-0.3, 0.3);
+		move.setOnTargetCount(2);
+		move.setLoopTime(10);
 		turn.setSetpoint(RobotMap.heading);
-		turn.setOnTargetOffset(2);
-		turn.setOutputLimits(-0.4, 0.4);
-		turn.setOnTargetCount(10);
+		turn.setOutputLimits(-0.3, 0.3);
 		turn.setLoopTime(10);
 		last_x = 0;
 		last_y = 0;
@@ -45,8 +43,9 @@ public class TrackX extends Command {
 
 	protected void execute() {
 		Mat mat = RobotMap.cam0.getImage();
-		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
-		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat, 254);
+		RobotMap.cam0.setCanny(Robot.canny1, Robot.canny2);
+		RobotMap.cam0.setThreash(Robot.threash);
+		ArrayList<Rect> l = RobotMap.cam0.TRGBgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;

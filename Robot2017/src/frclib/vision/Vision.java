@@ -18,6 +18,7 @@ public class Vision {
 
 	private int min1 = 0, min2 = 0, min3 = 0;
 	private int max1 = 0, max2 = 0, max3 = 0;
+	private int threash = 0, canny1 = 0, canny2 = 0;
 
 	private CvSink sink;
 	private CvSource source;
@@ -58,6 +59,15 @@ public class Vision {
 		this.max2 = max2;
 		this.min3 = min3;
 		this.max3 = max3;
+	}
+
+	public void setCanny(int v1, int v2) {
+		this.canny1 = v1;
+		this.canny2 = v2;
+	}
+
+	public void setThreash(int v) {
+		this.threash = v;
 	}
 
 	public ArrayList<Rect> HLSgetBlobs(Mat src) {
@@ -108,13 +118,73 @@ public class Vision {
 		return blobs;
 	}
 
-	public ArrayList<Rect> TRGBgetBlobs(Mat src, int v) {
+	public ArrayList<Rect> TRGBgetBlobs(Mat src) {
 		Mat mat = src.clone();
 		ArrayList<Rect> blobs = new ArrayList<Rect>();
 		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
-		Imgproc.threshold(mat, mat, v, 255, Imgproc.THRESH_BINARY);
+		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
 		Core.inRange(mat, new Scalar(min1, min2, min3), new Scalar(max1, max2, max3), mat);
+		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+		for (int i = 0; i < c.size(); i++) {
+			MatOfPoint mop = c.get(i);
+			if (mop != null) {
+				blobs.add(Imgproc.boundingRect(mop));
+			}
+		}
+		return blobs;
+	}
+
+	public ArrayList<Rect> TSCGgetBlobs(Mat src) {
+		Mat mat = src.clone();
+		ArrayList<Rect> blobs = new ArrayList<Rect>();
+		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
+		ArrayList<Mat> split = new ArrayList<Mat>();
+		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
+		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
+		Core.split(mat, split);
+		Mat matg = split.get(1);
+		Imgproc.Canny(matg, mat, canny1, canny1);
+		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+		for (int i = 0; i < c.size(); i++) {
+			MatOfPoint mop = c.get(i);
+			if (mop != null) {
+				blobs.add(Imgproc.boundingRect(mop));
+			}
+		}
+		return blobs;
+	}
+
+	public ArrayList<Rect> TSCRgetBlobs(Mat src) {
+		Mat mat = src.clone();
+		ArrayList<Rect> blobs = new ArrayList<Rect>();
+		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
+		ArrayList<Mat> split = new ArrayList<Mat>();
+		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
+		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
+		Core.split(mat, split);
+		Mat matr = split.get(0);
+		Imgproc.Canny(matr, mat, canny1, canny1);
+		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+		for (int i = 0; i < c.size(); i++) {
+			MatOfPoint mop = c.get(i);
+			if (mop != null) {
+				blobs.add(Imgproc.boundingRect(mop));
+			}
+		}
+		return blobs;
+	}
+
+	public ArrayList<Rect> TSCBgetBlobs(Mat src) {
+		Mat mat = src.clone();
+		ArrayList<Rect> blobs = new ArrayList<Rect>();
+		ArrayList<MatOfPoint> c = new ArrayList<MatOfPoint>();
+		ArrayList<Mat> split = new ArrayList<Mat>();
+		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
+		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
+		Core.split(mat, split);
+		Mat matb = split.get(2);
+		Imgproc.Canny(matb, mat, canny1, canny1);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
 			MatOfPoint mop = c.get(i);
