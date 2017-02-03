@@ -144,7 +144,7 @@ public class Vision {
 		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
 		Core.split(mat, split);
 		Mat matg = split.get(1);
-		Imgproc.Canny(matg, mat, canny1, canny1);
+		Imgproc.Canny(matg, mat, canny1, canny2);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
 			MatOfPoint mop = c.get(i);
@@ -164,7 +164,7 @@ public class Vision {
 		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
 		Core.split(mat, split);
 		Mat matr = split.get(0);
-		Imgproc.Canny(matr, mat, canny1, canny1);
+		Imgproc.Canny(matr, mat, canny1, canny2);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
 			MatOfPoint mop = c.get(i);
@@ -184,7 +184,7 @@ public class Vision {
 		Imgproc.threshold(mat, mat, threash, 255, Imgproc.THRESH_BINARY);
 		Core.split(mat, split);
 		Mat matb = split.get(2);
-		Imgproc.Canny(matb, mat, canny1, canny1);
+		Imgproc.Canny(matb, mat, canny1, canny2);
 		Imgproc.findContours(mat, c, new Mat(), Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 		for (int i = 0; i < c.size(); i++) {
 			MatOfPoint mop = c.get(i);
