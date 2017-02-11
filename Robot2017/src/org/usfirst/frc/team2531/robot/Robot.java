@@ -66,7 +66,6 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		// RobotMap.cam0.showLive();
 		proc();
 	}
 
@@ -102,7 +101,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		// RobotMap.cam0.showLive();
 		proc();
 	}
 
