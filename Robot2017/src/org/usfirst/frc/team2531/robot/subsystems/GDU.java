@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class GearMechanisim extends Subsystem {
+public class GDU extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
