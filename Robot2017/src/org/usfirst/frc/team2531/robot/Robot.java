@@ -17,8 +17,10 @@ import org.usfirst.frc.team2531.robot.commands.TrackX;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
+import org.usfirst.frc.team2531.robot.subsystems.GearIn;
 import org.usfirst.frc.team2531.robot.subsystems.GearMechanisim;
 import org.usfirst.frc.team2531.robot.subsystems.Gimbal;
+import org.usfirst.frc.team2531.robot.subsystems.SubHopper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,10 +33,12 @@ import frclib.vision.Vision;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
+	public static SubHopper hopper;
 	public static DriveSystem drive;
 	public static Climber climber;
 	public static Gimbal gimbal;
 	public static GearMechanisim gear;
+	public static GearIn gearIn;
 
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
@@ -48,9 +52,11 @@ public class Robot extends IterativeRobot {
 		System.out.println("# Robot");
 		RobotMap.cam0 = new Vision("cam0", 0, w, h);
 		climber = new Climber();
+		hopper = new SubHopper(); 
 		drive = new DriveSystem();
 		gimbal = new Gimbal();
 		gear = new GearMechanisim();
+		gearIn = new GearIn();
 		oi = new OI();
 		RobotMap.imu.reset();
 		RobotMap.heading = 0;
