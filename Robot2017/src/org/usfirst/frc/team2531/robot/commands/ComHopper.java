@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ComHopper extends Command {
-
-    public ComHopper() {
+	boolean b;
+	int i; 
+    public ComHopper(boolean a) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.hopper);
+    	b = a;
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +24,17 @@ public class ComHopper extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(b){
     	Robot.hopper.up(1);
+    	
+    	}
+    	if(!b){	
+        	Robot.hopper.up(-1);
+        	i++; 
+    		if (i == 20){
+    		    	end();
+    		}
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,13 +45,12 @@ public class ComHopper extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	System.out.println("End Hopper");
-    	Robot.hopper.up(-1);
-    	
-
+    	Robot.hopper.up(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

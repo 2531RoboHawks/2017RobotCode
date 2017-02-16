@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private Talon FL = new Talon(1);
-	private Talon FR = new Talon(0);
-	private Talon BL = new Talon(2);
-	private Talon BR = new Talon(3);
+	private Talon FL = new Talon(3);
+	private Talon FR = new Talon(5);
+	private Talon BL = new Talon(4);
+	private Talon BR = new Talon(6);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());
