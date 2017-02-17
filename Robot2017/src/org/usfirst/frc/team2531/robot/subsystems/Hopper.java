@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -7,12 +9,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Hopper extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	private CANTalon m = new CANTalon(4);
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	public void initDefaultCommand() {
+	}
+
+	public void set(double pow) {
+		m.set(pow);
+	}
+
+	public void stop() {
+		m.set(0);
+	}
 }
-

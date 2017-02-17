@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-	private Talon m1 = new Talon(4);
-	private Talon m2 = new Talon(5);
+	private Talon m1 = new Talon(0);
+	private Talon m2 = new Talon(1);
 
 	public void initDefaultCommand() {
 	}

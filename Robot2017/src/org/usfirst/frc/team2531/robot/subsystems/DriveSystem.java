@@ -2,7 +2,8 @@ package org.usfirst.frc.team2531.robot.subsystems;
 
 import org.usfirst.frc.team2531.robot.commands.Drive;
 
-import edu.wpi.first.wpilibj.Talon;
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private Talon FL = new Talon(1);
-	private Talon FR = new Talon(0);
-	private Talon BL = new Talon(2);
-	private Talon BR = new Talon(3);
+	private CANTalon FL = new CANTalon(0);
+	private CANTalon FR = new CANTalon(2);
+	private CANTalon BL = new CANTalon(1);
+	private CANTalon BR = new CANTalon(3);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());
