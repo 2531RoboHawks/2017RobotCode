@@ -23,7 +23,6 @@ public class TimeDrive extends Command {
 
 	}
 
-	// Called just before this Command runs the first time
 	protected void initialize() {
 		System.out.println("-> TimeDrive");
 		endTime = time + System.currentTimeMillis();
@@ -31,7 +30,6 @@ public class TimeDrive extends Command {
 		pid.setOutputLimits(-0.2, 0.2);
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double t = pid.compute(-RobotMap.imu.getAngleZ() / 4);
 		Robot.drive.axisdrive(0, -pow, 0);
@@ -40,20 +38,16 @@ public class TimeDrive extends Command {
 		}
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return end;
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
 		end = false;
 		Robot.drive.stop();
 		System.out.println("-! TimeDrive");
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
 	}

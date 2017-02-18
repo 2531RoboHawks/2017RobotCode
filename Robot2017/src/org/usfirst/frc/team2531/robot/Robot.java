@@ -8,10 +8,10 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team2531.robot.commands.Center;
-import org.usfirst.frc.team2531.robot.commands.Demo;
-import org.usfirst.frc.team2531.robot.commands.Left;
-import org.usfirst.frc.team2531.robot.commands.Right;
+import org.usfirst.frc.team2531.robot.commands.CenterPath;
+import org.usfirst.frc.team2531.robot.commands.DriveSquare;
+import org.usfirst.frc.team2531.robot.commands.LeftTPath;
+import org.usfirst.frc.team2531.robot.commands.RightPath;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
 import org.usfirst.frc.team2531.robot.commands.TrackX;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 	Command autocommand;
 
 	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
-			max3 = 1, w = 320, h = 240;
+			max3 = 1, w = 320, h = 240, minsize = 100;
 
 	@Override
 	public void robotInit() {
@@ -119,10 +119,10 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Vision Tracking", new TrackX(true));
 		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn", new Turn2Angle(90));
-		auto.addObject("Demo", new Demo());
-		auto.addObject("Left", new Left());
-		auto.addObject("Center", new Center());
-		auto.addObject("Right", new Right());
+		auto.addObject("Drive In Square", new DriveSquare());
+		auto.addObject("Left", new LeftTPath());
+		auto.addObject("Center", new CenterPath());
+		auto.addObject("Right", new RightPath());
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
@@ -143,7 +143,7 @@ public class Robot extends IterativeRobot {
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null && r.area() > 100) {
+			if (r != null && r.area() > minsize) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;

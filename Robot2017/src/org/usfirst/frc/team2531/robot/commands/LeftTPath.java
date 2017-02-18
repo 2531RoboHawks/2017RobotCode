@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Left extends CommandGroup {
+public class LeftTPath extends CommandGroup {
 
-	public Left() {
+	public LeftTPath() {
 		addSequential(new TimeDrive(3067, 0.5));
 		addSequential(new Turn2Angle(54));
 		addSequential(new TimeDrive(1800, 0.5));

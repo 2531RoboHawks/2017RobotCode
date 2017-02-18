@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Center extends CommandGroup {
+public class CenterPath extends CommandGroup {
 
-	public Center() {
+	public CenterPath() {
 		addSequential(new TimeDrive(1200, 0.5));
 		addSequential(new Turn2Angle(-47));
 		addSequential(new TimeDrive(700, 0.5));

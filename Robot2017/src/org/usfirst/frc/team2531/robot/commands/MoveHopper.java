@@ -18,7 +18,7 @@ public class MoveHopper extends Command {
 	}
 
 	protected void initialize() {
-		System.out.println("-> Move Hopper");
+		System.out.println("-> MoveHopper");
 	}
 
 	protected void execute() {
@@ -34,7 +34,7 @@ public class MoveHopper extends Command {
 	}
 
 	protected void end() {
-		System.out.println("-! Move Hopper");
+		System.out.println("-! MoveHopper");
 	}
 
 	protected void interrupted() {

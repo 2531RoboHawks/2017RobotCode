@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class Demo extends CommandGroup {
+public class DriveSquare extends CommandGroup {
 
-	public Demo() {
+	public DriveSquare() {
 		addSequential(new TimeDrive(1000, 0.5));
 		addSequential(new Turn2Angle(90));
 		addSequential(new TimeDrive(1000, 0.5));

@@ -8,30 +8,31 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Gear extends Command {
+public class MoveGDU extends Command {
 
-	boolean done, state, toggle;
+	boolean done, state1, state2, toggle;
 
-	public Gear() {
+	public MoveGDU() {
 		requires(Robot.gdu);
 		done = false;
 		toggle = false;
 	}
 
-	public Gear(boolean s) {
+	public MoveGDU(boolean s1, boolean s2) {
 		requires(Robot.gdu);
 		done = false;
 		toggle = true;
-		state = s;
+		state1 = s1;
+		state2 = s2;
 	}
 
 	protected void initialize() {
-		System.out.println("-> Gear");
+		System.out.println("-> MoveGDU");
 	}
 
 	protected void execute() {
 		if (toggle) {
-			Robot.gdu.set(state, true);
+			Robot.gdu.set(state1, state2);
 			done = true;
 		} else {
 			Robot.gdu.set(OI.gamepad.getRawButton(6), OI.gamepad.getRawButton(5));
@@ -44,7 +45,7 @@ public class Gear extends Command {
 
 	protected void end() {
 		Robot.gdu.set(false, false);
-		System.out.println("-! Gear");
+		System.out.println("-! MoveGDU");
 	}
 
 	protected void interrupted() {

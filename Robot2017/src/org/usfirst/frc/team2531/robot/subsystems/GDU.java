@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
-import org.usfirst.frc.team2531.robot.commands.Gear;
+import org.usfirst.frc.team2531.robot.commands.MoveGDU;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +25,6 @@ public class GDU extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new Gear());
+		setDefaultCommand(new MoveGDU());
 	}
 }

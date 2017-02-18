@@ -47,7 +47,7 @@ public class TrackR extends Command {
 		int size = 0;
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
-			if (r != null && r.area() > 100) {
+			if (r != null && r.area() > Robot.minsize) {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;
