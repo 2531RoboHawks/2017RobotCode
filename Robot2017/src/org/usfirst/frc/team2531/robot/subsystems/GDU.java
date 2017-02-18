@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
-import org.usfirst.frc.team2531.robot.commands.DeployGear;
+import org.usfirst.frc.team2531.robot.commands.Gear;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -10,19 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GDU extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-	Solenoid off = new Solenoid(0);
-	Solenoid on = new Solenoid(1);
+	Solenoid in = new Solenoid(0);
+	Solenoid out = new Solenoid(1);
+	Solenoid off = new Solenoid(2);
+	Solenoid on = new Solenoid(3);
 
-	public void set(boolean b) {
+	public void set(boolean b, boolean o) {
 		on.set(b);
 		off.set(!b);
+		in.set(!o);
+		out.set(o);
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new DeployGear());
+		setDefaultCommand(new Gear());
 	}
 }

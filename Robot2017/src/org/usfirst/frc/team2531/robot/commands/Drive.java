@@ -16,9 +16,10 @@ public class Drive extends Command {
 	}
 
 	protected void execute() {
-		if (OI.gamepad.getRawButton(5)) {
-			Robot.drive.axisdrive(OI.gamepad.getRawAxis(4) / 3, OI.gamepad.getRawAxis(1) / 3,
-					OI.gamepad.getRawAxis(0) / 3);
+		if (OI.gamepad.getRawAxis(2) > 0) {
+			Robot.drive.axisdrive(OI.gamepad.getRawAxis(4) / (4 * OI.gamepad.getRawAxis(2)),
+					OI.gamepad.getRawAxis(1) / (4 * OI.gamepad.getRawAxis(2)),
+					OI.gamepad.getRawAxis(0) / (4 * OI.gamepad.getRawAxis(2)));
 		} else {
 			Robot.drive.axisdrive(OI.gamepad.getRawAxis(4), OI.gamepad.getRawAxis(1), OI.gamepad.getRawAxis(0));
 		}

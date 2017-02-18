@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private CANTalon FL = new CANTalon(0);
-	private CANTalon FR = new CANTalon(2);
-	private CANTalon BL = new CANTalon(1);
-	private CANTalon BR = new CANTalon(3);
+	private CANTalon FL = new CANTalon(1);
+	private CANTalon FR = new CANTalon(3);
+	private CANTalon BL = new CANTalon(2);
+	private CANTalon BR = new CANTalon(0);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Drive());
@@ -23,9 +23,9 @@ public class DriveSystem extends Subsystem {
 	public void axisdrive(double x, double y, double r) {
 		double a = Math.atan2(y, x);
 		FL.set(-(Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
-		FR.set((Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
+		FR.set((Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
 		BL.set(-(Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
-		BR.set((Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
+		BR.set((Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
 	}
 
 	public void stop() {
