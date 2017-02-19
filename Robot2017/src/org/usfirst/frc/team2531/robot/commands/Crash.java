@@ -32,6 +32,7 @@ public class Crash extends Command {
 
 	protected void initialize() {
 		System.out.println("-> Crash");
+		done = false;
 	}
 
 	protected void execute() {

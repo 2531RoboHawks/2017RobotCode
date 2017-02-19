@@ -122,6 +122,7 @@ public class ADIS16448 extends GyroBase implements Gyro, PIDSource, LiveWindowSe
 	private AtomicBoolean m_freed = new AtomicBoolean(false);
 
 	private SPI m_spi;
+	@SuppressWarnings("unused")
 	private DigitalOutput m_reset;
 	private DigitalInput m_interrupt;
 
@@ -136,7 +137,9 @@ public class ADIS16448 extends GyroBase implements Gyro, PIDSource, LiveWindowSe
 		public double mag_x;
 		public double mag_y;
 		public double mag_z;
+		@SuppressWarnings("unused")
 		public double baro;
+		@SuppressWarnings("unused")
 		public double temp;
 		public double dt;
 

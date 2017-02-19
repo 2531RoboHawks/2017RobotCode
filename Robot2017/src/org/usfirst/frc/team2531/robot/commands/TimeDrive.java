@@ -28,9 +28,11 @@ public class TimeDrive extends Command {
 		endTime = time + System.currentTimeMillis();
 		pid = new PID(0.06, 0.0, 0.0, RobotMap.heading);
 		pid.setOutputLimits(-0.2, 0.2);
+		end = false;
 	}
 
 	protected void execute() {
+		@SuppressWarnings("unused")
 		double t = pid.compute(-RobotMap.imu.getAngleZ() / 4);
 		Robot.drive.axisdrive(0, -pow, 0);
 		if (endTime < System.currentTimeMillis()) {
@@ -43,7 +45,6 @@ public class TimeDrive extends Command {
 	}
 
 	protected void end() {
-		end = false;
 		Robot.drive.stop();
 		System.out.println("-! TimeDrive");
 	}

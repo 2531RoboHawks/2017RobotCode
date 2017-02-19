@@ -28,6 +28,7 @@ public class MoveGDU extends Command {
 
 	protected void initialize() {
 		System.out.println("-> MoveGDU");
+		done = false;
 	}
 
 	protected void execute() {
