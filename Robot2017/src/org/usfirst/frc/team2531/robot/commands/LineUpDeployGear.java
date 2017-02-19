@@ -10,6 +10,7 @@ public class LineUpDeployGear extends CommandGroup {
 
 	public LineUpDeployGear() {
 		addSequential(new LineUpGear());
+		addSequential(new Crash(Crash.LEFT, 20));
 		addSequential(new MoveGDU(true, false));
 		addSequential(new Delay(500));
 		addSequential(new MoveGDU(false, false));

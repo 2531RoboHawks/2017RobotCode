@@ -41,6 +41,7 @@ public class MoveHopper extends Command {
 	}
 
 	protected void end() {
+		Robot.climber.stop();
 		System.out.println("-! MoveHopper");
 	}
 

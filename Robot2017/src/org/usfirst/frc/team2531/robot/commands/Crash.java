@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2531.robot.commands;
 
+import org.usfirst.frc.team2531.robot.Robot;
+import org.usfirst.frc.team2531.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -7,30 +10,60 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Crash extends Command {
 
-    public Crash() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    }
+	public static final int FRONT = 0, LEFT = 2, RIGHT = 3, BACK = 1;
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	public int direction;
+	public boolean done;
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	public int stopval = 20;
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	public Crash(int d) {
+		direction = d;
+		done = false;
+		requires(Robot.drive);
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	public Crash(int d, int s) {
+		direction = d;
+		stopval = s;
+		done = false;
+		requires(Robot.drive);
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	protected void initialize() {
+		System.out.println("-> Crash");
+	}
+
+	protected void execute() {
+		switch (direction) {
+		case 0:
+			Robot.drive.axisdrive(0, 0.5, 0);
+			break;
+		case 1:
+			Robot.drive.axisdrive(0, -0.5, 0);
+			break;
+		case 2:
+			Robot.drive.axisdrive(-0.5, 0, 0);
+			break;
+		case 3:
+			Robot.drive.axisdrive(-0.5, 0, 0);
+			break;
+		}
+		if (Math.abs(RobotMap.imu.getAccelX()) > stopval || Math.abs(RobotMap.imu.getAccelY()) > stopval) {
+			done = true;
+		}
+	}
+
+	protected boolean isFinished() {
+		return done;
+	}
+
+	protected void end() {
+		Robot.drive.stop();
+		System.out.println("-! Crash");
+	}
+
+	protected void interrupted() {
+		end();
+	}
 }
