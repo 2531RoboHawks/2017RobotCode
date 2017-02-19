@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2531.robot.commands;
 
 import org.usfirst.frc.team2531.robot.Robot;
+import org.usfirst.frc.team2531.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -23,9 +24,15 @@ public class MoveHopper extends Command {
 
 	protected void execute() {
 		if (up) {
-
+			Robot.hopper.set(0.5);
+			if (RobotMap.hopperup.get()) {
+				done = true;
+			}
 		} else {
-
+			Robot.hopper.set(-0.5);
+			if (RobotMap.hopperdown.get()) {
+				done = true;
+			}
 		}
 	}
 

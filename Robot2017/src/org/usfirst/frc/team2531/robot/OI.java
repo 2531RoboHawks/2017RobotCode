@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2531.robot;
 
 import org.usfirst.frc.team2531.robot.commands.MoveClimber;
+import org.usfirst.frc.team2531.robot.commands.MoveHopper;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,6 +17,7 @@ public class OI {
 
 	public OI() {
 		A.whileHeld(new MoveClimber(true));
-		Y.whileHeld(new MoveClimber(false));
+		Y.whileHeld(new MoveHopper(true));
+		B.whileHeld(new MoveHopper(false));
 	}
 }
