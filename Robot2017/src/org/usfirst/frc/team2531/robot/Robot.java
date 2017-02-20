@@ -48,6 +48,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		System.out.println("# Robot");
 		RobotMap.cam0 = new Vision("cam0", 0, w, h);
+		RobotMap.cam1 = new Vision("cam1", 1, w, h);
 		climber = new Climber();
 		drive = new DriveSystem();
 		gdu = new GDU();
@@ -125,6 +126,7 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Center", new CenterPath());
 		auto.addObject("Right", new RightPath());
 		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
+		auto.addObject("Base Line", new TimeDrive(2000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
@@ -159,5 +161,6 @@ public class Robot extends IterativeRobot {
 			Imgproc.line(mat, new Point(0, y), new Point(w, y), new Scalar(0, 255, 0), 1);
 		}
 		RobotMap.cam0.putImage(mat);
+		RobotMap.cam1.showLive();
 	}
 }

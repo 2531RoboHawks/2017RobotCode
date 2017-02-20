@@ -22,9 +22,9 @@ public class MoveClimber extends Command {
 
 	protected void execute() {
 		if (dir) {
-			Robot.climber.set(1);
-		} else {
 			Robot.climber.set(-1);
+		} else {
+			Robot.climber.set(1);
 		}
 	}
 

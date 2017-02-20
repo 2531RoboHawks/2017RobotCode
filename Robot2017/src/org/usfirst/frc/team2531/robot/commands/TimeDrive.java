@@ -16,10 +16,22 @@ public class TimeDrive extends Command {
 	private double pow;
 	private PID pid;
 
+	public static final int FRONT = 1, LEFT = 2, RIGHT = 3, BACK = 0;
+
+	public int direction;
+
 	public TimeDrive(long t, double p) {
 		requires(Robot.drive);
 		pow = p;
 		time = t;
+
+	}
+
+	public TimeDrive(long t, double p, int d) {
+		requires(Robot.drive);
+		pow = p;
+		time = t;
+		direction = d;
 
 	}
 
@@ -34,7 +46,20 @@ public class TimeDrive extends Command {
 	protected void execute() {
 		@SuppressWarnings("unused")
 		double t = pid.compute(-RobotMap.imu.getAngleZ() / 4);
-		Robot.drive.axisdrive(0, -pow, 0);
+		switch (direction) {
+		case 0:
+			Robot.drive.axisdrive(0, pow, 0);
+			break;
+		case 1:
+			Robot.drive.axisdrive(0, -pow, 0);
+			break;
+		case 2:
+			Robot.drive.axisdrive(-pow, 0, 0);
+			break;
+		case 3:
+			Robot.drive.axisdrive(pow, 0, 0);
+			break;
+		}
 		if (endTime < System.currentTimeMillis()) {
 			end = true;
 		}

@@ -16,12 +16,20 @@ public class Drive extends Command {
 	}
 
 	protected void execute() {
+		double a = Math.atan2(OI.gamepad.getRawAxis(4), OI.gamepad.getRawAxis(1));
 		if (OI.gamepad.getRawAxis(2) > 0) {
-			Robot.drive.axisdrive(OI.gamepad.getRawAxis(4) / (4 * OI.gamepad.getRawAxis(2)),
-					OI.gamepad.getRawAxis(1) / (4 * OI.gamepad.getRawAxis(2)),
+			// Robot.drive.axisdrive(OI.gamepad.getRawAxis(4) / (4 *
+			// OI.gamepad.getRawAxis(2)),
+			// OI.gamepad.getRawAxis(1) / (4 * OI.gamepad.getRawAxis(2)),
+			// OI.gamepad.getRawAxis(0) / (4 * OI.gamepad.getRawAxis(2)));
+			Robot.drive.axisdrive(Math.cos(a) * OI.gamepad.getRawAxis(1) / (4 * OI.gamepad.getRawAxis(2)),
+					Math.sin(a) * OI.gamepad.getRawAxis(4) / (4 * OI.gamepad.getRawAxis(2)),
 					OI.gamepad.getRawAxis(0) / (4 * OI.gamepad.getRawAxis(2)));
 		} else {
-			Robot.drive.axisdrive(OI.gamepad.getRawAxis(4), OI.gamepad.getRawAxis(1), OI.gamepad.getRawAxis(0));
+			// Robot.drive.axisdrive(OI.gamepad.getRawAxis(4),
+			// OI.gamepad.getRawAxis(1), OI.gamepad.getRawAxis(0));
+			Robot.drive.axisdrive(Math.cos(a) * OI.gamepad.getRawAxis(1), Math.sin(a) * OI.gamepad.getRawAxis(4),
+					OI.gamepad.getRawAxis(0));
 		}
 	}
 
