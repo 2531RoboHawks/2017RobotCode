@@ -48,10 +48,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		System.out.println("# Robot");
 		RobotMap.cam0 = new Vision("cam0", 0, w, h);
-		RobotMap.cam1 = new Vision("cam1", 1, w, h);
-		climber = new Climber();
 		drive = new DriveSystem();
 		gdu = new GDU();
+		climber = new Climber();
 		hopper = new Hopper();
 		oi = new OI();
 		RobotMap.imu.reset();
@@ -161,6 +160,5 @@ public class Robot extends IterativeRobot {
 			Imgproc.line(mat, new Point(0, y), new Point(w, y), new Scalar(0, 255, 0), 1);
 		}
 		RobotMap.cam0.putImage(mat);
-		RobotMap.cam1.showLive();
 	}
 }
