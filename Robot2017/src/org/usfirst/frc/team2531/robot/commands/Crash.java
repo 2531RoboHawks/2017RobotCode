@@ -47,7 +47,7 @@ public class Crash extends Command {
 			Robot.drive.axisdrive(-0.5, 0, 0);
 			break;
 		case 3:
-			Robot.drive.axisdrive(-0.5, 0, 0);
+			Robot.drive.axisdrive(0.5, 0, 0);
 			break;
 		}
 		if (Math.abs(RobotMap.imu.getAccelX()) > stopval || Math.abs(RobotMap.imu.getAccelY()) > stopval) {
