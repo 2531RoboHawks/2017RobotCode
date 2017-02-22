@@ -24,12 +24,12 @@ public class MoveHopper extends Command {
 
 	protected void execute() {
 		if (up) {
-			Robot.hopper.set(0.5);
+			Robot.hopper.set(-0.75);
 			if (RobotMap.hopperup.get()) {
 				done = true;
 			}
 		} else {
-			Robot.hopper.set(-0.5);
+			Robot.hopper.set(0.75);
 			if (RobotMap.hopperdown.get()) {
 				done = true;
 			}
