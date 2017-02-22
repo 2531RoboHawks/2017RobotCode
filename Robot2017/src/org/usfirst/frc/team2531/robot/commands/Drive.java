@@ -4,7 +4,6 @@ import org.usfirst.frc.team2531.robot.OI;
 import org.usfirst.frc.team2531.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Command {
 
@@ -21,7 +20,6 @@ public class Drive extends Command {
 	protected void execute() {
 		if (OI.gamepad.getPOV(0) != -1) {
 			pov = OI.gamepad.getPOV(0);
-			SmartDashboard.putNumber("pov", pov);
 		}
 		switch (pov) {
 		case 0:

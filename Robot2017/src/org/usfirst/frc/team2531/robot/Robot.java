@@ -14,7 +14,7 @@ import org.usfirst.frc.team2531.robot.commands.LeftPath;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.RightPath;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
-import org.usfirst.frc.team2531.robot.commands.TrackX;
+import org.usfirst.frc.team2531.robot.commands.TrackY;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
@@ -117,7 +117,7 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Vision Tracking", new TrackX(true));
+		auto.addObject("Vision Tracking", new TrackY(true));
 		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn", new Turn2Angle(90));
 		auto.addObject("Drive In Square", new DriveSquare());

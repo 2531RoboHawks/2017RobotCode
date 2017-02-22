@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2531.robot;
 
+import org.usfirst.frc.team2531.robot.commands.DumpHopper;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.MoveClimber;
-import org.usfirst.frc.team2531.robot.commands.MoveHopper;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -18,8 +18,7 @@ public class OI {
 
 	public OI() {
 		A.whileHeld(new MoveClimber(true));
-		B.whenPressed(new MoveHopper(true));
-		B.whenReleased(new MoveHopper(false));
+		B.whenPressed(new DumpHopper());
 		X.whileHeld(new LineUpDeployGear());
 	}
 }
