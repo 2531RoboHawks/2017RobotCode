@@ -128,12 +128,12 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Base Line", new TimeDrive(2000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);
 	}
 
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleZ() / 4);
+		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);
 	}
 
 	public void proc() {
