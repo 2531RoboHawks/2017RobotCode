@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2531.robot;
 
-import org.usfirst.frc.team2531.robot.commands.DumpHopper;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.MoveClimber;
 
@@ -18,7 +17,7 @@ public class OI {
 
 	public OI() {
 		A.whileHeld(new MoveClimber(true));
-		B.whenPressed(new DumpHopper());
+		// B.whenPressed(new DumpHopper());
 		X.whileHeld(new LineUpDeployGear());
 	}
 }

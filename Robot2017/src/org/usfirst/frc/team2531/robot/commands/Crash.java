@@ -15,7 +15,7 @@ public class Crash extends Command {
 	public int direction;
 	public boolean done;
 
-	public int stopval = 20;
+	public int stopval = 5;
 
 	public Crash(int d) {
 		direction = d;
