@@ -43,6 +43,7 @@ public class Robot extends IterativeRobot {
 
 	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
 			max3 = 1, w = 320, h = 240, minsize = 100;
+	public static double angle = 0;
 
 	@Override
 	public void robotInit() {
@@ -69,6 +70,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		angle = RobotMap.imu.getAngleY() / 4;
 		proc();
 	}
 
@@ -87,6 +89,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		angle = RobotMap.imu.getAngleY() / 4;
 		RobotMap.cam0.showLive();
 	}
 
@@ -104,6 +107,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
+		angle = RobotMap.imu.getAngleY() / 4;
 		proc();
 	}
 
@@ -111,6 +115,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 		updateSmartDashboard();
+		angle = RobotMap.imu.getAngleY() / 4;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -125,7 +130,7 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Center", new CenterPath());
 		auto.addObject("Right", new RightPath());
 		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
-		auto.addObject("Base Line", new TimeDrive(3000, 0.5, TimeDrive.FRONT));
+		auto.addObject("Base Line", new TimeDrive(5000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);
@@ -133,7 +138,7 @@ public class Robot extends IterativeRobot {
 
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);
+		SmartDashboard.putNumber("Heading", Robot.angle);
 	}
 
 	public void proc() {
