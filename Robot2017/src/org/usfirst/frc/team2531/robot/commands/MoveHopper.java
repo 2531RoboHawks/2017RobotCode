@@ -10,10 +10,18 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MoveHopper extends Command {
 
-	boolean up, done;
+	boolean up, done, stop;
+
+	public MoveHopper(boolean up, boolean stop) {
+		this.up = up;
+		this.stop = stop;
+		done = false;
+		requires(Robot.hopper);
+	}
 
 	public MoveHopper(boolean up) {
 		this.up = up;
+		this.stop = true;
 		done = false;
 		requires(Robot.hopper);
 	}
@@ -24,13 +32,13 @@ public class MoveHopper extends Command {
 
 	protected void execute() {
 		if (up) {
-			Robot.hopper.set(-0.75);
-			if (RobotMap.hopperup.get()) {
+			Robot.hopper.set(-0.8);
+			if (RobotMap.hopperup.get() && !stop) {
 				done = true;
 			}
 		} else {
-			Robot.hopper.set(0.75);
-			if (RobotMap.hopperdown.get()) {
+			Robot.hopper.set(0.8);
+			if (RobotMap.hopperdown.get() && !stop) {
 				done = true;
 			}
 		}
@@ -41,7 +49,7 @@ public class MoveHopper extends Command {
 	}
 
 	protected void end() {
-		Robot.climber.stop();
+		Robot.hopper.stop();
 		System.out.println("-! MoveHopper");
 	}
 

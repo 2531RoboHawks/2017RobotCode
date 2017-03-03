@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Hopper extends Subsystem {
 
-	private CANTalon m = new CANTalon(4);
+	private CANTalon m = new CANTalon(5);
 
 	public void initDefaultCommand() {
 	}

@@ -125,7 +125,7 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Center", new CenterPath());
 		auto.addObject("Right", new RightPath());
 		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
-		auto.addObject("Base Line", new TimeDrive(2000, 0.5, TimeDrive.FRONT));
+		auto.addObject("Base Line", new TimeDrive(3000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);

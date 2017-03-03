@@ -37,6 +37,7 @@ public class MoveGDU extends Command {
 			done = true;
 		} else {
 			Robot.gdu.set(OI.gamepad.getRawButton(6), OI.gamepad.getRawButton(5));
+			// Robot.gdu.set(OI.left.getRawButton(1), OI.right.getRawButton(1));
 		}
 	}
 

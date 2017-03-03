@@ -9,7 +9,7 @@ public class RightPath extends CommandGroup {
 
 	public RightPath() {
 		addSequential(new TimeDrive(2000, 0.5, TimeDrive.FRONT));
-		addSequential(new Crash(TimeDrive.LEFT, 5));
+		addSequential(new Crash(Crash.LEFT, 5));
 		addSequential(new DeployGear());
 	}
 }

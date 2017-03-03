@@ -9,7 +9,7 @@ public class LeftPath extends CommandGroup {
 
 	public LeftPath() {
 		addSequential(new TimeDrive(2000, 0.5, TimeDrive.BACK));
-		addSequential(new Crash(TimeDrive.LEFT, 5));
+		addSequential(new Crash(Crash.LEFT, 5));
 		addSequential(new DeployGear());
 	}
 }

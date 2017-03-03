@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
-import org.usfirst.frc.team2531.robot.commands.Drive;
+import org.usfirst.frc.team2531.robot.commands.Drive3;
 
 import com.ctre.CANTalon;
 
@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSystem extends Subsystem {
 
-	private CANTalon FL = new CANTalon(0);
-	private CANTalon FR = new CANTalon(1);
-	private CANTalon BL = new CANTalon(2);
-	private CANTalon BR = new CANTalon(3);
+	private CANTalon FL = new CANTalon(1);
+	private CANTalon FR = new CANTalon(2);
+	private CANTalon BL = new CANTalon(3);
+	private CANTalon BR = new CANTalon(4);
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drive());
+		setDefaultCommand(new Drive3());
 	}
 
 	public void axisdrive(double x, double y, double r) {
