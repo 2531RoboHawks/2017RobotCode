@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
-import org.usfirst.frc.team2531.robot.commands.Drive3;
+import org.usfirst.frc.team2531.robot.commands.StaticDrive;
 
 import com.ctre.CANTalon;
 
@@ -17,7 +17,7 @@ public class DriveSystem extends Subsystem {
 	private CANTalon BR = new CANTalon(4);
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drive3());
+		setDefaultCommand(new StaticDrive());
 	}
 
 	public void axisdrive(double x, double y, double r) {
@@ -26,6 +26,17 @@ public class DriveSystem extends Subsystem {
 		FR.set((Math.abs(Math.sin(a)) * y) + (Math.abs(Math.cos(a)) * x) + r);
 		BL.set(-(Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
 		BR.set((Math.abs(Math.sin(a)) * y) - (Math.abs(Math.cos(a)) * x) + r);
+	}
+
+	public void orientationdrive(double x, double y, double r, double angle) {
+		double cos = Math.cos(Math.toRadians(angle));
+		double sin = Math.sin(Math.toRadians(angle));
+		double rotx = x * cos + y * sin;
+		double roty = x * sin - y * cos;
+		FL.set(rotx + roty + r);
+		FR.set(-rotx + roty - r);
+		BL.set(-rotx + roty + r);
+		BR.set(rotx + roty - r);
 	}
 
 	public void stop() {
