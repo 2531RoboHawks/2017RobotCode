@@ -2,6 +2,7 @@ package org.usfirst.frc.team2531.robot;
 
 import org.usfirst.frc.team2531.robot.commands.MoveClimber;
 import org.usfirst.frc.team2531.robot.commands.MoveHopper;
+import org.usfirst.frc.team2531.robot.commands.TrackY;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -18,6 +19,8 @@ public class OI {
 	public static JoystickButton X = new JoystickButton(gamepad, 3);
 	public static JoystickButton Y = new JoystickButton(gamepad, 4);
 
+	public static JoystickButton A2 = new JoystickButton(axis, 2);
+
 	// public static JoystickButton L1 = new JoystickButton(left, 1);
 	// public static JoystickButton L2 = new JoystickButton(left, 2);
 	// public static JoystickButton L3 = new JoystickButton(left, 3);
@@ -31,7 +34,8 @@ public class OI {
 	// public static JoystickButton R5 = new JoystickButton(right, 5);
 
 	public OI() {
-		X.whileHeld(new MoveClimber(false));
+		A2.whileHeld(new TrackY(false));
+		X.whileHeld(new MoveClimber(true));
 		// B.whenPressed(new DumpHopper());
 		// X.whileHeld(new LineUpDeployGear());
 		// R3.whileHeld(new MoveClimber(true));

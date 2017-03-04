@@ -31,12 +31,12 @@ public class DriveSystem extends Subsystem {
 	public void orientationdrive(double x, double y, double r, double angle) {
 		double cos = Math.cos(Math.toRadians(angle));
 		double sin = Math.sin(Math.toRadians(angle));
-		double rotx = x * cos + y * sin;
-		double roty = x * sin - y * cos;
-		FL.set(rotx + roty + r);
-		FR.set(-rotx + roty - r);
-		BL.set(-rotx + roty + r);
-		BR.set(rotx + roty - r);
+		double rotx = x * cos - y * sin;
+		double roty = x * sin + y * cos;
+		FL.set(rotx - roty + r);
+		FR.set(rotx + roty + r);
+		BL.set(-rotx - roty + r);
+		BR.set(-rotx + roty + r);
 	}
 
 	public void stop() {

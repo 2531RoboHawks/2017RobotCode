@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 		climber = new Climber();
 		hopper = new Hopper();
 		oi = new OI();
+		RobotMap.imu.calibrate();
 		RobotMap.imu.reset();
 		RobotMap.heading = 0;
 		initSmartDashboard();
@@ -70,7 +71,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		angle = RobotMap.imu.getAngleY() / 4;
+		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		proc();
 	}
 
@@ -89,14 +90,14 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		angle = RobotMap.imu.getAngleY() / 4;
+		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		RobotMap.cam0.showLive();
 	}
 
 	@Override
 	public void teleopInit() {
 		System.out.println("# Teleop");
-		RobotMap.imu.reset();
+		// RobotMap.imu.reset();
 		RobotMap.heading = 0;
 		if (autocommand != null) {
 			autocommand.cancel();
@@ -107,7 +108,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
-		angle = RobotMap.imu.getAngleY() / 4;
+		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		proc();
 	}
 
@@ -115,7 +116,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 		updateSmartDashboard();
-		angle = RobotMap.imu.getAngleY() / 4;
+		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -133,7 +134,7 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Base Line", new TimeDrive(5000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
-		SmartDashboard.putNumber("Heading", RobotMap.imu.getAngleY() / 4);
+		SmartDashboard.putNumber("Heading", angle);
 	}
 
 	public void updateSmartDashboard() {

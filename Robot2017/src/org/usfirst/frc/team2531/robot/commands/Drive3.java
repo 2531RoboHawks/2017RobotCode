@@ -16,12 +16,12 @@ public class Drive3 extends Command {
 	}
 
 	protected void execute() {
-		if (OI.axis.getRawAxis(2) > 0) {
-			Robot.drive.axisdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
+		if (OI.axis.getRawButton(1)) {
+			Robot.drive.orientationdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
-					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)));
+					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle);
 		} else {
-			Robot.drive.axisdrive(OI.axis.getRawAxis(0), OI.axis.getRawAxis(1), OI.axis.getRawAxis(3));
+			Robot.drive.axisdrive(0, OI.axis.getRawAxis(1), OI.axis.getRawAxis(0));
 		}
 	}
 
