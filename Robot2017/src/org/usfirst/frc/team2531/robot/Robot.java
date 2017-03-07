@@ -21,6 +21,7 @@ import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team2531.robot.subsystems.GDU;
 import org.usfirst.frc.team2531.robot.subsystems.Hopper;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,6 +50,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		System.out.println("# Robot");
 		RobotMap.cam0 = new Vision("cam0", 0, w, h);
+		// RobotMap.cam1 = new Vision("cam1", 1, w, h);
 		drive = new DriveSystem();
 		gdu = new GDU();
 		climber = new Climber();
@@ -58,6 +60,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.imu.reset();
 		RobotMap.heading = 0;
 		initSmartDashboard();
+		CameraServer.getInstance().startAutomaticCapture(1);
 	}
 
 	@Override

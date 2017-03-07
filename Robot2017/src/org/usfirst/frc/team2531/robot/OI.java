@@ -34,7 +34,7 @@ public class OI {
 	// public static JoystickButton R5 = new JoystickButton(right, 5);
 
 	public OI() {
-		A2.whileHeld(new TrackY(false));
+		A2.whileHeld(new TrackY(true));
 		X.whileHeld(new MoveClimber(true));
 		// B.whenPressed(new DumpHopper());
 		// X.whileHeld(new LineUpDeployGear());

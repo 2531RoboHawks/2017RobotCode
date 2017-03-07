@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class StaticDrive extends Command {
 
+	double offset = 0, current = 0;
+
 	public StaticDrive() {
 		requires(Robot.drive);
 	}
@@ -16,13 +18,18 @@ public class StaticDrive extends Command {
 	}
 
 	protected void execute() {
-		if (OI.axis.getRawButton(1)) {
+		if (OI.axis.getRawAxis(3) == 0) {
+			offset = Robot.angle - current;
+		} else {
+			current = Robot.angle;
+		}
+		if (!OI.axis.getRawButton(1)) {
 			Robot.drive.orientationdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
-					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle);
+					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle - offset);
 		} else {
 			Robot.drive.orientationdrive(OI.axis.getRawAxis(0), OI.axis.getRawAxis(1), OI.axis.getRawAxis(3),
-					Robot.angle);
+					Robot.angle - offset);
 		}
 	}
 
