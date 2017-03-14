@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="C:/Users/chase/wpilib/java/current/lib/NetworkTables.jar"/>
 	<classpathentry kind="lib" path="C:/Users/chase/wpilib/java/current/lib/opencv.jar"/>
 	<classpathentry kind="lib" path="C:/Users/chase/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

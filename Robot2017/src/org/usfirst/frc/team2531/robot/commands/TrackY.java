@@ -15,7 +15,7 @@ import frclib.pid.PID;
 
 public class TrackY extends Command {
 
-	private PID move = new PID(0.04, 0, 0, Robot.w / 2);
+	private PID move = new PID(0.003, 0, 0, Robot.w / 2);
 	private PID turn = new PID(0.008, 0, 0, 0);
 	private double move_power = 0;
 	private double turn_power = 0;
