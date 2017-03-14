@@ -18,8 +18,11 @@ public class OI {
 	public static JoystickButton B = new JoystickButton(gamepad, 2);
 	public static JoystickButton X = new JoystickButton(gamepad, 3);
 	public static JoystickButton Y = new JoystickButton(gamepad, 4);
-
 	public static JoystickButton A2 = new JoystickButton(axis, 2);
+	/*public static JoystickButton A = new JoystickButton(axis, 1);
+	public static JoystickButton B = new JoystickButton(axis, 2);
+	public static JoystickButton X = new JoystickButton(axis, 3);
+	public static JoystickButton Y = new JoystickButton(axis, 4);*/
 
 	// public static JoystickButton L1 = new JoystickButton(left, 1);
 	// public static JoystickButton L2 = new JoystickButton(left, 2);
