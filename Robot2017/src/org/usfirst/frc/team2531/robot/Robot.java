@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Climber climber;
 	public static GDU gdu;
 	public static Hopper hopper;
-	public static double  offset = 0, current = 0, rate, time = System.currentTimeMillis();
+	public static double offset = 0, current = 0, rate, time = System.currentTimeMillis();
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
 	Command autocommand;
@@ -114,11 +114,11 @@ public class Robot extends IterativeRobot {
 		proc();
 		if ((OI.axis.getRawAxis(3) == 0) && (OI.axis.getRawAxis(1) == 0) && (OI.axis.getRawAxis(2) == 0)) {
 			offset = Robot.angle - current;
-			time = time - System.currentTimeMillis(); 
-			 rate = offset / time; 		} 
-		else {
-			current = Robot.angle; 
-			
+			time = time - System.currentTimeMillis();
+			rate = offset / time;
+		} else {
+			current = Robot.angle;
+
 		}
 	}
 
