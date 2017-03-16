@@ -3,6 +3,7 @@ package org.usfirst.frc.team2531.robot;
 
 import java.util.ArrayList;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
@@ -42,7 +43,7 @@ public class Robot extends IterativeRobot {
 	Command autocommand;
 
 	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
-			max3 = 1, w = 320, h = 240, minsize = 100;
+			max3 = 1, w = 320, h = 240, minsize = 1000;
 	public static double angle = 0;
 
 	@Override
@@ -166,6 +167,8 @@ public class Robot extends IterativeRobot {
 				x += r.x + (r.width / 2);
 				y += r.y + (r.height / 2);
 				size += 1;
+				Imgproc.putText(mat, Vision.getDistance(r, 60, 2, 320) + "", new Point(r.x, r.y),
+						Core.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(0, 255, 0));
 			}
 		}
 		if (size > 0) {

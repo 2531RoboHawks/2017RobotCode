@@ -12,5 +12,6 @@
 	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/TalonSRXLibJava.jar"/>
 	<classpathentry kind="var" path="frclib"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/frclib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
