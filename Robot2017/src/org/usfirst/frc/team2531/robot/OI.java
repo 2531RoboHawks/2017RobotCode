@@ -11,8 +11,6 @@ public class OI {
 
 	public static Joystick gamepad = new Joystick(0);
 	public static Joystick axis = new Joystick(1);
-	// public static Joystick left = new Joystick(1);
-	// public static Joystick right = new Joystick(2);
 
 	public static JoystickButton A = new JoystickButton(gamepad, 1);
 	public static JoystickButton B = new JoystickButton(gamepad, 2);
@@ -41,9 +39,6 @@ public class OI {
 	public OI() {
 		A2.whileHeld(new TrackY(true));
 		X.whileHeld(new MoveClimber(true));
-		// B.whenPressed(new DumpHopper());
-		// X.whileHeld(new LineUpDeployGear());
-		// R3.whileHeld(new MoveClimber(true));
 		Y.whileHeld(new MoveHopper(true, false));
 		A.whileHeld(new MoveHopper(false, false));
 

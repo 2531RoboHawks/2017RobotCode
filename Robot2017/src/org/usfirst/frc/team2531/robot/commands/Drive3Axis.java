@@ -5,26 +5,23 @@ import org.usfirst.frc.team2531.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class StaticDrive extends Command {
+public class Drive3Axis extends Command {
 
-	public StaticDrive() {
+	public Drive3Axis() {
 		requires(Robot.drive);
 	}
 
 	protected void initialize() {
-		System.out.println("-> StaticDrive");
+		System.out.println("-> Drive3");
 	}
 
 	protected void execute() {
-		if (!OI.axis.getRawButton(1)) {
+		if (OI.axis.getRawButton(1)) {
 			Robot.drive.orientationdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
-					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle - Robot.offset - Robot.rate);
-					Robot.offset = 0; 
+					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle);
 		} else {
-			Robot.drive.orientationdrive(OI.axis.getRawAxis(0), OI.axis.getRawAxis(1), OI.axis.getRawAxis(3),
-					Robot.angle - Robot.offset - Robot.rate );
-			Robot.offset = 0; 
+			Robot.drive.axisdrive(0, OI.axis.getRawAxis(1), OI.axis.getRawAxis(0));
 		}
 	}
 
@@ -34,7 +31,7 @@ public class StaticDrive extends Command {
 
 	protected void end() {
 		Robot.drive.stop();
-		System.out.println("-! StaticDrive");
+		System.out.println("-! Drive3");
 	}
 
 	protected void interrupted() {
