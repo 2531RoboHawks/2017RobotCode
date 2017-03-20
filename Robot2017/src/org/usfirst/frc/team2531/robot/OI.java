@@ -37,7 +37,7 @@ public class OI {
 
 	public OI() {
 		X.whileHeld(new MoveClimber(true));
-		A.whileActive(new MoveTrackY(true));
+		A.whileHeld(new MoveTrackY());
 
 	}
 }

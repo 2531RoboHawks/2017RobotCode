@@ -17,12 +17,20 @@ public class TrackY extends Command {
 
 	private PID move = new PID(0.005, 0, 0, Robot.w / 2);
 	private double move_power = 0;
+	private double f = 0;
 	private double last_x = 0;
 	private double last_y = 0;
 	private boolean stop = false;
 
 	public TrackY(boolean ontargetstop) {
 		stop = ontargetstop;
+		requires(Robot.drive);
+		f = 0;
+	}
+
+	public TrackY(double move) {
+		stop = false;
+		f = move;
 		requires(Robot.drive);
 	}
 
@@ -61,7 +69,7 @@ public class TrackY extends Command {
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			move_power = move.compute2(x);
-			Robot.drive.axisdrive(0, move_power, 0);
+			Robot.drive.axisdrive(f, move_power, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);

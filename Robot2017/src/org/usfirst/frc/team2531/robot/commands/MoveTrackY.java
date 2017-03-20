@@ -22,8 +22,8 @@ public class MoveTrackY extends Command {
 	private double last_y = 0;
 	private boolean stop = false;
 
-	public MoveTrackY(boolean ontargetstop) {
-		stop = ontargetstop;
+	public MoveTrackY() {
+		stop = false;
 		requires(Robot.drive);
 	}
 
