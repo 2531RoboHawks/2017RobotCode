@@ -14,13 +14,11 @@ public class MoveGDU extends Command {
 
 	public MoveGDU() {
 		requires(Robot.gdu);
-		done = false;
 		toggle = false;
 	}
 
 	public MoveGDU(boolean s1, boolean s2) {
 		requires(Robot.gdu);
-		done = false;
 		toggle = true;
 		state1 = s1;
 		state2 = s2;

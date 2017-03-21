@@ -21,9 +21,16 @@ public class MoveTrackY extends Command {
 	private double last_x = 0;
 	private double last_y = 0;
 	private boolean stop = false;
+	private double speed = 0;
 
 	public MoveTrackY() {
 		stop = false;
+		requires(Robot.drive);
+	}
+
+	public MoveTrackY(double s) {
+		stop = false;
+		speed = s;
 		requires(Robot.drive);
 	}
 
@@ -62,12 +69,16 @@ public class MoveTrackY extends Command {
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			move_power = move.compute2(x);
-			Robot.drive.axisdrive(OI.gamepad.getRawAxis(1) / 4, move_power, 0);
+			if (speed != 0) {
+				Robot.drive.axisdrive(speed, move_power, 0);
+			} else {
+				Robot.drive.axisdrive(OI.axis.getRawAxis(1) / 4, move_power, 0);
+			}
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, last_y), new Point(Robot.w, last_y), new Scalar(0, 255, 0), 1);
-			Robot.drive.stop();
+			Robot.drive.axisdrive(speed, 0, 0);
 			RobotMap.cam0.putImage(mat);
 		}
 	}
