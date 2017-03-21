@@ -164,11 +164,13 @@ public class Robot extends IterativeRobot {
 		for (int i = 0; i < l.size(); i++) {
 			Rect r = l.get(i);
 			if (r != null && r.area() > minsize) {
-				x += r.x + (r.width / 2);
-				y += r.y + (r.height / 2);
-				size += 1;
-				Imgproc.putText(mat, Vision.getDistance(r, 60, 2, 320) + "", new Point(r.x, r.y),
-						Core.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(0, 255, 0));
+				if (size < 1) {
+					x += r.x + (r.width / 2);
+					y += r.y + (r.height / 2);
+					size += 1;
+					Imgproc.putText(mat, Vision.getDistance(r, 60, 2, 320) + "", new Point(r.x, r.y),
+							Core.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(0, 255, 0));
+				}
 			}
 		}
 		if (size > 0) {
