@@ -62,7 +62,7 @@ public class MoveTrackY extends Command {
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
 			move_power = move.compute2(x);
-			Robot.drive.axisdrive(OI.gamepad.getRawAxis(1) / 2, move_power, 0);
+			Robot.drive.axisdrive(OI.gamepad.getRawAxis(1) / 4, move_power, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
