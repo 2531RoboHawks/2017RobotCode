@@ -6,13 +6,12 @@ import org.usfirst.frc.team2531.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class GyroDrive extends Command {
-
 	public GyroDrive() {
 		requires(Robot.drive);
 	}
 
 	protected void initialize() {
-		System.out.println("-> StaticDrive");
+		System.out.println("-> GyroDrive");
 	}
 
 	protected void execute() {
@@ -20,11 +19,11 @@ public class GyroDrive extends Command {
 			Robot.drive.orientationdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle - Robot.offset - Robot.rate);
-					Robot.offset = 0; 
+			Robot.offset = 0;
 		} else {
 			Robot.drive.orientationdrive(OI.axis.getRawAxis(0), OI.axis.getRawAxis(1), OI.axis.getRawAxis(3),
-					Robot.angle - Robot.offset - Robot.rate );
-			Robot.offset = 0; 
+					Robot.angle - Robot.offset - Robot.rate);
+			Robot.offset = 0;
 		}
 	}
 
@@ -34,7 +33,7 @@ public class GyroDrive extends Command {
 
 	protected void end() {
 		Robot.drive.stop();
-		System.out.println("-! StaticDrive");
+		System.out.println("-! GyroDrive");
 	}
 
 	protected void interrupted() {

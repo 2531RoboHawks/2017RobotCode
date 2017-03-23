@@ -10,17 +10,14 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2531.robot.commands.CenterPath;
-import org.usfirst.frc.team2531.robot.commands.DriveSquare;
 import org.usfirst.frc.team2531.robot.commands.LeftPath;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.RightPath;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
-import org.usfirst.frc.team2531.robot.commands.TrackY;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 import org.usfirst.frc.team2531.robot.subsystems.GDU;
-import org.usfirst.frc.team2531.robot.subsystems.Hopper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,7 +33,6 @@ public class Robot extends IterativeRobot {
 	public static DriveSystem drive;
 	public static Climber climber;
 	public static GDU gdu;
-	public static Hopper hopper;
 	public static double offset = 0, current = 0, rate, time = System.currentTimeMillis();
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
@@ -45,6 +41,7 @@ public class Robot extends IterativeRobot {
 	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
 			max3 = 1, w = 320, h = 240, minsize = 1000;
 	public static double angle = 0;
+	private int div = 0;
 
 	@Override
 	public void robotInit() {
@@ -54,7 +51,6 @@ public class Robot extends IterativeRobot {
 		drive = new DriveSystem();
 		gdu = new GDU();
 		climber = new Climber();
-		hopper = new Hopper();
 		oi = new OI();
 		RobotMap.imu.calibrate();
 		RobotMap.imu.reset();
@@ -115,11 +111,17 @@ public class Robot extends IterativeRobot {
 		proc();
 		if ((OI.axis.getRawAxis(3) == 0) && (OI.axis.getRawAxis(1) == 0) && (OI.axis.getRawAxis(2) == 0)) {
 			offset = Robot.angle - current;
-			time = time - System.currentTimeMillis();
+			time = System.currentTimeMillis() - time;
 			rate = offset / time;
+			System.out.println(rate);
+			div = 0;
 		} else {
+			if (div == 1) {
+				rate = offset / time;
+			}
 			current = Robot.angle;
-
+			div++;
+			time = System.currentTimeMillis();
 		}
 	}
 
@@ -134,15 +136,13 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Vision Tracking", new TrackY(true));
-		auto.addObject("Time Drive", new TimeDrive(1000, 0.5));
-		auto.addObject("Turn", new Turn2Angle(90));
-		auto.addObject("Drive In Square", new DriveSquare());
+		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5));
+		auto.addObject("Turn 90deg", new Turn2Angle(90));
 		auto.addObject("Left", new LeftPath());
 		auto.addObject("Center", new CenterPath());
 		auto.addObject("Right", new RightPath());
 		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
-		auto.addObject("Base Line", new TimeDrive(5000, 0.5, TimeDrive.FRONT));
+		auto.addObject("Base Line", new TimeDrive(3000, 0.5, TimeDrive.FRONT));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", angle);

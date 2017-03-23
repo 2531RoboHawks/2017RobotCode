@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LeftPath extends CommandGroup {
 
 	public LeftPath() {
-		addSequential(new TimeDrive(2000, 0.5, TimeDrive.BACK));
-		addSequential(new Crash(Crash.LEFT, 5));
-		addSequential(new DeployGear());
+		addSequential(new TimeDrive(3000, 0.5, TimeDrive.FRONT));
+		addSequential(new Turn2Angle(120));
+		addSequential(new LineUpDeployGear());
 	}
 }

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2531.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frclib.time.Delay;
 
 /**
  *
@@ -9,12 +8,8 @@ import frclib.time.Delay;
 public class LineUpDeployGear extends CommandGroup {
 
 	public LineUpDeployGear() {
-		addSequential(new LineUpGear());
-		addSequential(new Crash(Crash.LEFT, 20));
-		addSequential(new MoveGDU(true, false));
-		addSequential(new Delay(500));
-		addSequential(new MoveGDU(false, false));
-		addSequential(new Delay(500));
+		addSequential(new MoveTrackY(-0.2), 5);
+		addSequential(new DeployGear());
 	}
 
 }
