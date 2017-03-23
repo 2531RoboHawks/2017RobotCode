@@ -15,10 +15,9 @@ import frclib.pid.PID;
 
 public class TrackY extends Command {
 
-	private PID move = new PID(0.04, 0, 0, Robot.w / 2);
-	private PID turn = new PID(0.008, 0, 0, 0);
+	private PID move = new PID(0.005, 0, 0, Robot.w / 2);
 	private double move_power = 0;
-	private double turn_power = 0;
+	private double f = 0;
 	private double last_x = 0;
 	private double last_y = 0;
 	private boolean stop = false;
@@ -26,17 +25,21 @@ public class TrackY extends Command {
 	public TrackY(boolean ontargetstop) {
 		stop = ontargetstop;
 		requires(Robot.drive);
+		f = 0;
+	}
+
+	public TrackY(double move) {
+		stop = false;
+		f = move;
+		requires(Robot.drive);
 	}
 
 	protected void initialize() {
 		System.out.println("-> TrackY");
-		move.setOnTargetOffset(2);
+		move.setOnTargetOffset(5);
 		move.setOutputLimits(-0.3, 0.3);
 		move.setOnTargetCount(2);
 		move.setLoopTime(10);
-		turn.setSetpoint(RobotMap.heading);
-		turn.setOutputLimits(-0.3, 0.3);
-		turn.setLoopTime(10);
 		last_x = 0;
 		last_y = 0;
 	}
@@ -65,9 +68,8 @@ public class TrackY extends Command {
 			mat = RobotMap.cam0.showBlobs(mat, l, new Scalar(0, 255, 0));
 			Imgproc.line(mat, new Point(x, 0), new Point(x, Robot.h), new Scalar(0, 255, 0), 1);
 			Imgproc.line(mat, new Point(0, y), new Point(Robot.w, y), new Scalar(0, 255, 0), 1);
-			move_power = -move.compute2(x);
-			turn_power = turn.compute2(RobotMap.imu.getAngleZ() / 4);
-			Robot.drive.axisdrive(0, move_power, turn_power);
+			move_power = move.compute2(x);
+			Robot.drive.axisdrive(f, move_power, 0);
 			RobotMap.cam0.putImage(mat);
 		} else {
 			Imgproc.line(mat, new Point(last_x, 0), new Point(last_x, Robot.h), new Scalar(0, 255, 0), 1);
