@@ -40,7 +40,8 @@ public class Track extends Command {
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setCanny(Robot.canny1, Robot.canny2);
 		RobotMap.cam0.setThreash(Robot.threash);
-		ArrayList<Rect> l = RobotMap.cam0.TSCRgetBlobs(mat);
+		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
+		ArrayList<Rect> l = RobotMap.cam0.RGBgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;

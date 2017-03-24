@@ -175,7 +175,8 @@ public class Robot extends IterativeRobot {
 		Mat mat = RobotMap.cam0.getImage();
 		RobotMap.cam0.setCanny(canny1, canny1);
 		RobotMap.cam0.setThreash(threash);
-		ArrayList<Rect> l = RobotMap.cam0.TSCRgetBlobs(mat);
+		RobotMap.cam0.setColor(Robot.min1, Robot.max1, Robot.min2, Robot.max2, Robot.min3, Robot.max3);
+		ArrayList<Rect> l = RobotMap.cam0.RGBgetBlobs(mat);
 		int x = 0;
 		int y = 0;
 		int size = 0;
