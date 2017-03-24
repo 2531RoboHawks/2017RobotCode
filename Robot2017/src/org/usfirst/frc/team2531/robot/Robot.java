@@ -115,9 +115,10 @@ public class Robot extends IterativeRobot {
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		proc();
 		driftCorrect();
-		
+
 	}
-	private void driftCorrect(){
+
+	private void driftCorrect() {
 		if ((OI.axis.getRawAxis(3) == 0) && (OI.axis.getRawAxis(1) == 0) && (OI.axis.getRawAxis(2) == 0)) {
 			offset = Robot.angle - current;
 			deltaT = System.currentTimeMillis() - time;
@@ -127,18 +128,18 @@ public class Robot extends IterativeRobot {
 			time = System.currentTimeMillis();
 		}
 	}
-	private void driftCorrectAuto(){
+
+	private void driftCorrectAuto() {
 		System.out.println("->DriftCorrectAuto");
-		if(autoOn == true){
+		if (autoOn == true) {
 			offset = Robot.angle - current;
-		System.out.println(offset);
-		}
-		else{
+			System.out.println(offset);
+		} else {
 			Robot.angle -= offset;
 			offset = 0;
 			current = Robot.angle;
 		}
-		
+
 	}
 
 	@Override
@@ -152,7 +153,7 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5,TimeDrive.FRONT));
+		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5, TimeDrive.FRONT));
 		auto.addObject("Turn 90deg", new Turn2Angle(90));
 		auto.addObject("Left", new LeftPath());
 		auto.addObject("Center", new CenterPath());
