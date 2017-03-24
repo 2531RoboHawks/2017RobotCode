@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSystem drive;
 	public static Climber climber;
 	public static GDU gdu;
-	public static double offset = 0, current = 0, rate, time = System.currentTimeMillis();
+	public static double offset = 0, current = 0, rate, time = System.currentTimeMillis(), deltaT = 0;
 	@SuppressWarnings("rawtypes")
 	SendableChooser auto;
 	Command autocommand;
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
 			max3 = 1, w = 320, h = 240, minsize = 1000;
 	public static double angle = 0;
-	private int div = 0;
+	public boolean autoOn = false;
 
 	@Override
 	public void robotInit() {
@@ -77,8 +77,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("# Autonomous");
+		autoOn = true;
 		RobotMap.imu.reset();
 		RobotMap.heading = 0;
+		current = Robot.angle;
 		autocommand = (Command) auto.getSelected();
 		if (autocommand != null) {
 			autocommand.start();
@@ -91,12 +93,15 @@ public class Robot extends IterativeRobot {
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		RobotMap.cam0.showLive();
+		driftCorrectAuto();
 	}
 
 	@Override
 	public void teleopInit() {
 		System.out.println("# Teleop");
 		// RobotMap.imu.reset();
+		autoOn = false;
+		driftCorrectAuto();
 		RobotMap.heading = 0;
 		if (autocommand != null) {
 			autocommand.cancel();
@@ -109,20 +114,31 @@ public class Robot extends IterativeRobot {
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		proc();
+		driftCorrect();
+		
+	}
+	private void driftCorrect(){
 		if ((OI.axis.getRawAxis(3) == 0) && (OI.axis.getRawAxis(1) == 0) && (OI.axis.getRawAxis(2) == 0)) {
 			offset = Robot.angle - current;
-			time = System.currentTimeMillis() - time;
-			rate = offset / time;
-			System.out.println(rate);
-			div = 0;
+			deltaT = System.currentTimeMillis() - time;
+			rate = offset / deltaT;
 		} else {
-			if (div == 1) {
-				rate = offset / time;
-			}
 			current = Robot.angle;
-			div++;
 			time = System.currentTimeMillis();
 		}
+	}
+	private void driftCorrectAuto(){
+		System.out.println("->DriftCorrectAuto");
+		if(autoOn == true){
+			offset = Robot.angle - current;
+		System.out.println(offset);
+		}
+		else{
+			Robot.angle -= offset;
+			offset = 0;
+			current = Robot.angle;
+		}
+		
 	}
 
 	@Override
@@ -136,7 +152,7 @@ public class Robot extends IterativeRobot {
 	public void initSmartDashboard() {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
-		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5));
+		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5,TimeDrive.FRONT));
 		auto.addObject("Turn 90deg", new Turn2Angle(90));
 		auto.addObject("Left", new LeftPath());
 		auto.addObject("Center", new CenterPath());
@@ -151,6 +167,7 @@ public class Robot extends IterativeRobot {
 	public void updateSmartDashboard() {
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", Robot.angle);
+		SmartDashboard.putNumber("Rate", Robot.rate);
 	}
 
 	public void proc() {

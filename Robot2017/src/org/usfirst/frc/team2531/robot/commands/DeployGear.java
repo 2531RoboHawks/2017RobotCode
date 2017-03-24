@@ -12,6 +12,5 @@ public class DeployGear extends CommandGroup {
 		addSequential(new MoveGDU(true, false));
 		addSequential(new Delay(500));
 		addSequential(new MoveGDU(false, false));
-		addSequential(new Delay(500));
 	}
 }

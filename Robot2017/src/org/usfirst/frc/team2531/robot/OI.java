@@ -36,7 +36,7 @@ public class OI {
 	// public static JoystickButton R5 = new JoystickButton(right, 5);
 
 	public OI() {
-		X.whileHeld(new MoveClimber(true));
+		A.whileHeld(new MoveClimber(true));
 		A2.whileHeld(new MoveTrackY());
 
 	}

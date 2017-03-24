@@ -12,16 +12,16 @@ public class Drive3Axis extends Command {
 	}
 
 	protected void initialize() {
-		System.out.println("-> Drive3");
+		System.out.println("-> Drive");
 	}
 
 	protected void execute() {
-		if (OI.axis.getRawButton(1)) {
-			Robot.drive.orientationdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
+		if (!OI.axis.getRawButton(1)) {
+			Robot.drive.axisdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
-					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)), Robot.angle);
+					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)));
 		} else {
-			Robot.drive.axisdrive(0, OI.axis.getRawAxis(1), OI.axis.getRawAxis(0));
+			Robot.drive.axisdrive(OI.axis.getRawAxis(0), OI.axis.getRawAxis(1), OI.axis.getRawAxis(3));
 		}
 	}
 
@@ -31,7 +31,7 @@ public class Drive3Axis extends Command {
 
 	protected void end() {
 		Robot.drive.stop();
-		System.out.println("-! Drive3");
+		System.out.println("-! Drive");
 	}
 
 	protected void interrupted() {
