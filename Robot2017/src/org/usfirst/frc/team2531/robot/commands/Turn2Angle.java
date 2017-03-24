@@ -30,7 +30,7 @@ public class Turn2Angle extends Command {
 	}
 
 	protected void execute() {
-		double p = pid.compute2(RobotMap.imu.getAngleY() / 4);
+		double p = pid.compute2(Robot.angle);
 		Robot.drive.axisdrive(0, 0, p);
 	}
 
