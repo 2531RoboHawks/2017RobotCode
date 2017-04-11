@@ -16,7 +16,7 @@ public class Drive3Axis extends Command {
 	}
 
 	protected void execute() {
-		if (!OI.axis.getRawButton(1)) {
+		if (OI.axis.getRawButton(1)) {
 			Robot.drive.axisdrive(OI.axis.getRawAxis(0) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(1) / (4 * OI.axis.getRawAxis(2)),
 					OI.axis.getRawAxis(3) / (4 * OI.axis.getRawAxis(2)));

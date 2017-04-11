@@ -38,8 +38,8 @@ public class Robot extends IterativeRobot {
 	SendableChooser auto;
 	Command autocommand;
 
-	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 0, min2 = 240, min3 = 0, max1 = 1, max2 = 255,
-			max3 = 1, w = 320, h = 240, minsize = 1000;
+	public static int canny1 = 1000, canny2 = 500, threash = 254, min1 = 100, min2 = 0, min3 = 0, max1 = 255, max2 = 20,
+			max3 = 20, w = 320, h = 240, minsize = 1000;
 	public static double angle = 0;
 	public boolean autoOn = false;
 
