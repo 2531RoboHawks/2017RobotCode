@@ -46,7 +46,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		System.out.println("# Robot");
-		RobotMap.cam0 = new Vision("cam0", 0, w, h);
+		RobotMap.cam0 = new Vision("cam0", 0);
+		// RobotMap.cam0 = new Vision("cam0", 0, w, h);
 		// RobotMap.cam1 = new Vision("cam1", 1, w, h);
 		drive = new DriveSystem();
 		gdu = new GDU();
@@ -71,7 +72,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
-		proc();
+		// proc();
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
-		RobotMap.cam0.showLive();
+		// RobotMap.cam0.showLive();
 		driftCorrectAuto();
 	}
 
@@ -113,7 +114,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
-		proc();
+		// proc();
 		driftCorrect();
 
 	}
