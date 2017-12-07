@@ -14,6 +14,7 @@ import org.usfirst.frc.team2531.robot.commands.LeftPath;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.RightPath;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
+import org.usfirst.frc.team2531.robot.commands.Track;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.Climber;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
@@ -161,6 +162,7 @@ public class Robot extends IterativeRobot {
 		auto.addObject("Right", new RightPath());
 		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
 		auto.addObject("Base Line", new TimeDrive(3000, 0.5, TimeDrive.FRONT));
+		auto.addObject("Track", new Track(false));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", angle);
