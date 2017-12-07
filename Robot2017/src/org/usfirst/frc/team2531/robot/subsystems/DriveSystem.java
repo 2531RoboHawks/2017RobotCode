@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
+import org.usfirst.frc.team2531.robot.Robot;
 import org.usfirst.frc.team2531.robot.commands.Drive3Axis;
 
 import com.ctre.CANTalon;
@@ -44,5 +45,26 @@ public class DriveSystem extends Subsystem {
 		FR.set(0);
 		BL.set(0);
 		BR.set(0);
+	}
+	
+	public void axisdrive(int direction, double power) {
+		switch (direction) {
+		case 0:
+			axisdrive(0, power, 0);
+			break;
+		case 1:
+			axisdrive(0, -power, 0);
+			break;
+		case 2:
+			axisdrive(-power, 0, 0);
+			break;
+		case 3:
+			axisdrive(power, 0, 0);
+			break;
+		}
+	}
+	
+	public void axisrotate(double power) {
+		Robot.drive.axisdrive(0, 0, power);
 	}
 }

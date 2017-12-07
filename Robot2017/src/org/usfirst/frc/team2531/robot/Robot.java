@@ -13,6 +13,7 @@ import org.usfirst.frc.team2531.robot.commands.CenterPath;
 import org.usfirst.frc.team2531.robot.commands.LeftPath;
 import org.usfirst.frc.team2531.robot.commands.LineUpDeployGear;
 import org.usfirst.frc.team2531.robot.commands.RightPath;
+import org.usfirst.frc.team2531.robot.commands.SquareDrive;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
 import org.usfirst.frc.team2531.robot.commands.Track;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
@@ -95,7 +96,6 @@ public class Robot extends IterativeRobot {
 		updateSmartDashboard();
 		angle = (RobotMap.imu.getAngleX() / 4) % 360;
 		// RobotMap.cam0.showLive();
-		driftCorrectAuto();
 	}
 
 	@Override
@@ -156,13 +156,7 @@ public class Robot extends IterativeRobot {
 		auto = new SendableChooser();
 		auto.addDefault("No Auto", null);
 		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5, TimeDrive.FRONT));
-		auto.addObject("Turn 90deg", new Turn2Angle(90));
-		auto.addObject("Left", new LeftPath());
-		auto.addObject("Center", new CenterPath());
-		auto.addObject("Right", new RightPath());
-		auto.addObject("Line Up Deploy Gear", new LineUpDeployGear());
-		auto.addObject("Base Line", new TimeDrive(3000, 0.5, TimeDrive.FRONT));
-		auto.addObject("Track", new Track(false));
+		auto.addObject("Square 1sec", new SquareDrive(2000, 0.5));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("DesiredHeading", RobotMap.heading);
 		SmartDashboard.putNumber("Heading", angle);
