@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2531.robot.subsystems;
 
-import org.usfirst.frc.team2531.robot.commands.Drive3Axis;
+import org.usfirst.frc.team2531.robot.commands.Drive;
 
 import com.ctre.CANTalon;
 
@@ -17,7 +17,7 @@ public class DriveSystem extends Subsystem {
 	private CANTalon BR = new CANTalon(4);
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drive3Axis());
+		setDefaultCommand(new Drive());
 	}
 
 	public void axisdrive(double x, double y, double r) {
