@@ -18,7 +18,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSystem drive;
 
 	@SuppressWarnings("rawtypes")
-	SendableChooser auto;
+	SendableChooser<Command> auto;
 	Command autocommand;
 
 	public static double angle = 0;
@@ -85,9 +85,8 @@ public class Robot extends IterativeRobot {
 		updateVar();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initSmartDashboard() {
-		auto = new SendableChooser();
+		auto = new SendableChooser<Command>();
 		auto.addDefault("No Auto", null);
 		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5));
 		auto.addObject("Turn 90deg", new Turn2Angle(90));
