@@ -16,15 +16,15 @@ public class Turn2Angle extends Command {
 
 	public Turn2Angle(double degrees) {
 		requires(Robot.drive);
-		angle = degrees+RobotMap.imu.getAngleX();
+		angle = degrees;
 		pid.setOutputLimits(-0.5, 0.5);
-		pid.setOnTargetCount(10);
+		pid.setOnTargetCount(100);
 		pid.setOnTargetOffset(1);
 	}
 
 	protected void initialize() {
 		System.out.println("-> Turn2Angle");
-		pid.setSetpoint(angle);
+		pid.setSetpoint(angle + RobotMap.imu.getAngleX());
 	}
 
 	protected void execute() {
