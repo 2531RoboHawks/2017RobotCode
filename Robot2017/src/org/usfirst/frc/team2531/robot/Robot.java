@@ -94,6 +94,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("AngleX", RobotMap.imu.getAngleX());
 		SmartDashboard.putNumber("AngleY", RobotMap.imu.getAngleY());
 		SmartDashboard.putNumber("AngleZ", RobotMap.imu.getAngleZ());
+		drive.print();
 	}
 
 }

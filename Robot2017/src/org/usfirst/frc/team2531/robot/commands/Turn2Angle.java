@@ -18,7 +18,7 @@ public class Turn2Angle extends Command {
 		requires(Robot.drive);
 		angle = degrees;
 		pid.setOutputLimits(-0.5, 0.5);
-		pid.setOnTargetCount(100);
+		pid.setOnTargetCount(10);
 		pid.setOnTargetOffset(1);
 	}
 
