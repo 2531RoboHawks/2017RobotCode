@@ -27,7 +27,7 @@ public class TimeDrive extends Command {
 	}
 
 	protected void execute() {
-		Robot.drive.axisdrive(0, pow, 0);
+		Robot.drive.axisdrive(0, -pow, 0);
 		if (System.currentTimeMillis() > endTime)
 			end = true;
 	}
