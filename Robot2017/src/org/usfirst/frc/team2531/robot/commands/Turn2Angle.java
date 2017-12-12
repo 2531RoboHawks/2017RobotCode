@@ -11,27 +11,25 @@ import frclib.pid.PID;
  */
 public class Turn2Angle extends Command {
 
-	private PID pid = new PID(0.004, 0.002, 0, 0);
-	private double degrees = 0;
+	private PID pid = new PID(0.05, 0, 0, 0);
+	private double angle;
 
 	public Turn2Angle(double degrees) {
 		requires(Robot.drive);
-		this.degrees = degrees;
+		angle = degrees+RobotMap.imu.getAngleX();
+		pid.setOutputLimits(-0.5, 0.5);
+		pid.setOnTargetCount(10);
+		pid.setOnTargetOffset(1);
 	}
 
 	protected void initialize() {
 		System.out.println("-> Turn2Angle");
-		RobotMap.heading += degrees;
-		pid.setSetpoint(RobotMap.heading);
-		pid.setOnTargetOffset(2);
-		pid.setOutputLimits(-0.4, 0.4);
-		pid.setOnTargetCount(10);
-		pid.setLoopTime(10);
+		pid.setSetpoint(angle);
 	}
 
 	protected void execute() {
-		double p = pid.compute2(Robot.angle);
-		Robot.drive.axisdrive(0, 0, p);
+		double p = pid.compute(RobotMap.imu.getAngleX());
+		Robot.drive.axisdrive(0, 0, -p);
 	}
 
 	protected boolean isFinished() {
