@@ -3,6 +3,7 @@ package org.usfirst.frc.team2531.robot;
 
 import org.usfirst.frc.team2531.robot.commands.DriveSquare;
 import org.usfirst.frc.team2531.robot.commands.TimeDrive;
+import org.usfirst.frc.team2531.robot.commands.TimeDriveGyro;
 import org.usfirst.frc.team2531.robot.commands.Turn2Angle;
 import org.usfirst.frc.team2531.robot.subsystems.DriveSystem;
 
@@ -82,8 +83,9 @@ public class Robot extends IterativeRobot {
 		auto = new SendableChooser<Command>();
 		auto.addDefault("No Auto", null);
 		auto.addObject("Time Drive 1sec", new TimeDrive(1000, 0.5));
+		auto.addObject("Time Drive Gyro 2sec", new TimeDriveGyro(2000, 0.5));
 		auto.addObject("Turn 90deg", new Turn2Angle(90));
-		auto.addObject("Drive Square", new DriveSquare());
+		auto.addObject("Drive Square", new DriveSquare(2000,0.5));
 		SmartDashboard.putData("Autonomous Mode", auto);
 		SmartDashboard.putNumber("AngleX", RobotMap.imu.getAngleX());
 		SmartDashboard.putNumber("AngleY", RobotMap.imu.getAngleY());
