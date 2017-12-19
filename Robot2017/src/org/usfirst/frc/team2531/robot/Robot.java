@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team2531.robot;
 
 import org.usfirst.frc.team2531.robot.commands.DriveSquare;
