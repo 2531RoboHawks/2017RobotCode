@@ -20,7 +20,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSystem drive;
 
-	public static int min1 = 100, min2 = 0, min3 = 0, max1 = 255, max2 = 20, max3 = 20, w = 720, h = 480,
+	public static int min1 = 100, min2 = 0, min3 = 0, max1 = 255, max2 = 20, max3 = 20, w = 160, h = 120,
 			minsize = 1000;
 
 	SendableChooser<Command> auto;
@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
 		RobotMap.imu.calibrate();
 		RobotMap.imu.reset();
 		initSmartDashboard();
-		RobotMap.cam0 = new Vision("cam0", 0, w, h);
+		RobotMap.cam0 = new Vision("cam0", 0);
+		// CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	@Override
@@ -103,6 +104,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("AngleY", RobotMap.imu.getAngleY());
 		SmartDashboard.putNumber("AngleZ", RobotMap.imu.getAngleZ());
 		drive.print();
+		RobotMap.cam0.showLive();
 	}
 
 }
